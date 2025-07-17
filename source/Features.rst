@@ -16,7 +16,8 @@ An Administrator user can perform the following actions.
   * View the `Audit Trail`_
   * Add or Assign `Users`_
   * Assign `Catalog`_ Items
-
+  * Switch to an Organization Unit (OU)
+  * :ref:`Add a new Project<How to add a new Project>`
 If the administrator logs in for the first time, you can see the welcome screen. Click on the "Let's get Started" button it will navigate to the "Add Account" screen. Use details from :ref:`Appendix A<Appendix A>`  to create an account. Once account creation is successful it will navigate to the "Create Organization" screen.
 
 .. _Budgets:
@@ -263,13 +264,33 @@ On successful validation, users will be allowed to login to the Research Gateway
 
 You can perform the following user actions 
 
-**Assign O.U.**
+**Manage O.U.**
 
-There is a contextual menu which is at the right side of the card. On clicking that, you can see the actions that can be performed. Choose the organizational unit in the drop-down list and click on the “Assign” button. You can see a successful toaster message also. Once assigned you can see O.U's name under the Email id. 
+There is a contextual menu (three-dot ⋮ icon) available at the top-right corner of each user card on the Users page. On clicking that, you will see a list of actions that can be performed for the selected user. Click on “Manage O.U.” from the list.
 
-.. image:: images/Admin_Users_AssignO.U.png
+.. image:: images/Admin-Manage-ou.png
 
-.. image:: images/Admin_Users_AssignO.U_PopUp.png 
+This opens the Assign to Organization dialog box. Here, you can select the appropriate Organizational Unit (O.U.) from the dropdown list where the user should be assigned. If the user needs access to more than one O.U., the admin can click on the “+ Add New” option to assign multiple O.U.s. Among the selected O.U.s, one must be marked as the default, which determines the user's landing O.U. after login.
+
+.. image:: images/Admin-Manage-ou-popup.png
+
+After making the necessary selections, click on the “Assign” button. A successful toaster message will confirm the assignment. Once assigned, only the default O.U. will be displayed below the user’s email ID on their card.
+
+.. note:: The Manage O.U. option is available only for users with the "Researcher" role and whose status is Active.
+
+**Deleter User**
+
+As an Administrator, you can delete a user from the Users page. Each user card includes a contextual menu represented by the three-dot (⋮) icon at the top-right corner. Click on this icon to view available actions for the user. Select “Delete User” from the list.
+
+.. image:: images/Admin-Delete-user.png
+
+When you click on Delete User, a confirmation dialog box will appear asking, “Are you sure you want to delete user?”. Click the Delete User button in the dialog to proceed with deletion.
+
+.. image:: images/Admin-Delete-user-popup.png
+
+Once confirmed, the user’s card will be removed from the UI, the corresponding user record will be deleted from the database, and a successful toaster message will appear to confirm that the user has been deleted.
+
+.. note:: A user cannot be deleted if they have any active workspaces associated with them. Attempting to delete such a user will result in an error. All associated workspaces must be terminated before the user can be successfully deleted. 
 
 **Enable**
 
@@ -345,11 +366,11 @@ If you try to search the non-existent word it will display a message like “No 
 
 .. image:: images/Admin_AuditTrail_LoginFailedRecords.png
 
-You can filter the logs by admin, Principal Investigator, researcher, Organization, and Project. You can also filter the logs through the date. 
+You can filter the logs by admin, data admin, researcher, Organization, and Project. You can also filter the logs through the date. 
 
-.. image:: images/Admin_AuditTrail_FilterLogsBy.png
+.. image:: images/Admin_AuditTrail_FilterLogsBy-new.png
 
-.. image:: images/Admin_AuditTrail_SelectDateRange.png
+.. image:: images/Admin_AuditTrail_SelectDateRange-new.png
 
 
 .. _Catalog:
@@ -432,12 +453,37 @@ The following details are visible in a table format:
     a. The account will not appear in the table if it is not assigned to any O.U. 
     b. Forecast value will not be shown if the account has less than one full billing cycle of historical data available.
 
-Principal Investigator Features
-+++++++++++++++++++++++++++++++
+Switch to an Organization Unit
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Administrator can switch to a different Organization Unit (OU) using either of the two methods described below:
 
-As a Principal Investigator, you can create an account and project also. A project will be associated with a Budget with an associated dollar amount that is funded from a specific Grant to the organization. A Project can use Resources only if there is an associated budget that can meet the forecasted needs.
+Switch by Clicking on the OU Card
+----------------------------------
 
-If Principal Investigator logs in for the first time, he can view the welcome screen. Click on the "Let's get Started" button it will navigate to the "Add Account" screen. 
+To switch to a different Organization Unit (OU), users can click directly on any of the OU cards displayed on the "My Organizations" page. When an OU card is selected, a pop-up titled Organization Details appears, showing the name, description, and other relevant information for that OU. At the bottom of this pop-up, users can click the "Switch to Organization" button, which will immediately redirect them to the selected OU’s workspace.
+
+.. image:: images/Switch_by_Clicking_on_the_OU_Card.png
+
+Switch via User Dropdown Menu
+-------------------------------
+
+Users can also switch OUs using the profile dropdown in the top-right corner of the application. By clicking on the profile name (e.g., Administrator), a dropdown menu appears with the option "Switch Organization...". 
+
+.. image:: images/Switch_by_User_Dropdown_Menu.png
+
+Selecting this opens a dialog box containing a dropdown list of available OUs.
+
+.. image:: images/Switch_by_User_Dropdown_Menu1.png
+
+Users can choose the desired OU from this list and click the "Switch to Organization" button to access it. 
+
+.. image:: images/Switch_by_User_Dropdown_Menu2.png
+
+Once an Administrator switches into a specific Organization Unit (O.U.), they will be redirected to the My Projects page by default. This page displays the list of projects associated with the selected O.U.
+
+As an Administrator, you can create both accounts and projects. Each project is associated with a budget, which includes a specific dollar amount funded through a grant to the organization. A project can utilize resources only if there is a sufficient budget to meet its forecasted requirements.
+
+If an Administrator switches into an O.U. for the first time, a Welcome Screen will be displayed. Clicking on the “Let’s Get Started” button will navigate to the Add Account screen, where account setup can begin
 
 .. image:: images/User_WelcomeScreen.png
 
@@ -463,13 +509,11 @@ How to add a new Project
 ^^^^^^^^^^^^^^^^^^^^^^^^
 Login to the Research Gateway. Click on the  “+Add New” button on the My Project page or use details from :ref:`Appendix A<Appendix A>`  to create an account. Once account creation is successful it will navigate to the "Create Project" screen. The project application form is open. 
 
-.. image:: images/Principal_CreateProject_1.png
+.. image:: images/Admin_CreateProject_1.png
 
-.. image:: images/Principal_CreateProject_2.png
+.. image:: images/Admin_CreateProject_2.png
 
-.. image:: images/Principal_CreateProject_3.png 
-
-.. image:: images/Principal_CreateProject_4.png
+.. image:: images/Admin_CreateProject_3.png 
 
 Fill in the following details
 
@@ -495,6 +539,8 @@ Fill in the following details
      - <Create products in the service catalog from our standard catalog or bring your own service catalog portfolio> [optional] 
    * - Use Project Storage 
      - <Research Gateway will setup a shared S3 bucket (project storage) where the team members can store data. This shared storage will be mounted into all supported workspaces. Storage costs will be accounted for at the project level. Note: For now by default, it will create the project storage. Selecting "Use Project Storage" will pull in the S3 into your project catalog>
+   * - Add Tags
+     - <Create tags that will be attached to all provisioned product in this project> [optional]
    * - Cost Control
      - <Research Gateway can automatically create budget consumption alerts and take actions like pausing the project (at 12%) or stopping the project (at 18%). Check this box to enable these actions.>
 
@@ -507,6 +553,7 @@ Click on the “Create Project” button. Added a new project successfully.
  b. If you select the "Bring all catalog items" option it will sync all the products which have the required launch permission in the portfolio of the AWS account.
  c. If you select the "Bring specific catalog items" option it will sync only the products which have the tag in the portfolio of the AWS account.
  d. If you select the “Use Project Storage” option it will create project storage at the time of project creation, if you unselect the “Use Project Storage” option it will not create project storage.
+ e. Tags added in the "Add Tags" section will automatically apply to all provisioned products. Both Key and Value fields must be filled to enable the “+ Add New” button, and tags can be removed using the trash bin icon.
 
 Project Storage
 ---------------
@@ -532,19 +579,13 @@ Cost Control
 1. Research Gateway can automatically create budget consumption alerts and take actions like pausing the project (at 80%) or stopping the project (at 90%).
 2. When creating a project if you select the “Automatically respond to budget alerts” checkbox and it will open a pop-up box that contains a message, Once you confirm that it will control the costs by taking automatic actions when budget thresholds are breached. By turning this feature off, you will lose the benefits of this cost control feature.
 
-.. image:: images/Principal_CreateProject_1.png
-
-.. image:: images/Principal_CreateProject_2.png
-
-.. image:: images/Principal_CreateProject_3.png 
-
-.. image:: images/Principal_CreateProject_4.png
+.. image:: images/Admin_CreateProject_3.png
 
 3. You can manually Stop/Pause/Resume/Archive/Add Budget to the project through the actions which are available on the project details page.
 
 .. note:: Project Storage can be deleted while archiving a project. You will now be prompted for deletion of the project storage when you archive a project. Select the checkbox if you want to delete the project storage bucket along with all of its contents.
 
-.. image:: images/Principal_ProjectDetails.png
+.. image:: images/Admin_ProjectDetails.png
 
 4. You can see the events related to cost control on the events page
 
@@ -569,34 +610,67 @@ Project Details Tab
 6. Click on the “Sync” button which is available on the right side. It should sync the catalog. You can see related events in the events tab.
 7. Click on the "Archive" button which is available on the right side, it was routed to my projects page and showed the message “Archiving project started” and later the project card got removed. Project Storage can be deleted while archiving a project. You will now be prompted for deletion of the project storage when you archive a project. Select the checkbox if you want to delete the project storage bucket along with all of its contents.
 
-.. image:: images/Principal_ProjectDetails.png 
+.. note:: 
+  a. If the project has any active workspace, the Archive button will be disabled.
+  b. The Archive button becomes available again only after all workspaces in the project have been terminated.
+  c. This condition excludes the project storage — the storage can optionally be deleted at the time of archiving, regardless of its state.
+
+.. image:: images/Admin_ProjectDetails.png 
 
 8. Click on the "Edit" option under the **Project Name** field. Once clicked on that you can add an updated Project name in the appropriate field(should be less than or equal to 32 characters) and click on the "Update" button. It will update the Project Name successfully and show a green color toaster message.
 
-.. image:: images/PrincipalInvestigator_ProjectDetails_EditProjectName.png
+.. image:: images/Admin_ProjectDetails_EditProjectName_Form.png
 
-.. image:: images/PrincipalInvestigator_ProjectDetails_EditProjectName_Form.png
+.. image:: images/Admin_ProjectDetails_EditProjectName_UpdateAction.png
 
-.. image:: images/PrincipalInvestigator_ProjectDetails_EditProjectName_UpdateAction.png
-
-.. image:: images/PrincipalInvestigator_ProjectDetails_EditProjectName_UpdateAction_Success.png
+.. image:: images/Admin_ProjectDetails_EditProjectName_UpdateAction_Success.png
 
 
 if you have not made any changes in Project Name and then you click on update action you will be able to see blue color toaster message
 
 
-.. image:: images/PrincipalInvestigator_ProjectDetails_EditProjectName_NoChange_UpdateAction.png
+.. image:: images/Admin_ProjectDetails_EditProjectName_NoChange_UpdateAction.png
 
-.. image:: images/PrincipalInvestigator_ProjectDetails_EditProjectName_NoChange_UpdateAction_toastermessage.png
+.. image:: images/Admin_ProjectDetails_EditProjectName_NoChange_UpdateAction_toastermessage.png
 
-9. Click on the “Manage” option under the **Assigned Researchers** field. Once clicked on that, enable the checkbox beside the researcher Emails and click on the “Update list” button. It will add collaborators to the project. You can search the researchers, through the search option.
+9. Under “Account Details,” you can see the AWS account ID and region associated with the project.
 
-.. image:: images/Principal_ProjectDetails_AssignUsers.png
+10. Click on the “Manage” option under the **Assigned Researchers** field. Once clicked on that, enable the checkbox beside the researcher Emails and click on the “Update list” button. It will add collaborators to the project. You can search the researchers, through the search option.
 
-10. Click on the "Manage" option under the **Add products** field. Once clicked on that, it will display the list. Select the option from the list and click on the "Update list" button.
+.. image:: images/Admin_ProjectDetails_AssignUsers.png
 
-.. image:: images/Principal_ProjectDetails_AddProducts.png
+11. Click on the “Manage” option under the Project Owner field to assign a project owner. Once opened, you can search for a researcher using the search bar and select the desired user by enabling the checkbox next to their email. After making your selection, click the “Update list” button to confirm and assign the project owner.You can also search for specific researchers using the search bar provided.
 
+.. image:: images/Admin_ProjectDetails_AssignProjectOwner.png
+
+.. note:: 
+  a. Only researchers who have been assigned to the project will appear in the list of eligible Project Owners.
+  b. A user designated as the Project Owner is granted elevated permissions, enabling them to manage users and perform all administrative actions on the project—such as starting, stopping, archiving the project, and managing budgets.
+
+12. Click on the "Manage" option under the **Add products** field. Once clicked on that, it will display the list. Select the option from the list and click on the "Update list" button.
+
+.. image:: images/Admin_ProjectDetails_AddProducts.png
+
+13. Click on the “Manage” button under the **Project Tags** section to enable tag editing.
+
+.. image:: images/Admin_ProjectDetails_Addprojecttags.png
+
+Once clicked, you will see the option to “+ Add New” tags to the project. Enter the desired Key and Value, and then click “Update Tags” to save your changes.It will update the Project Tags successfully and show a green color toaster message. Tags help in categorizing, filtering, and managing resources efficiently.
+
+.. image:: images/Admin_ProjectDetails_Manageprojecttags.png
+
+.. note:: The “+ Add New” button becomes active only after the previous key-value pair is completed.
+
+.. image:: images/Admin_ProjectDetails_AddNew_Disabled.png
+
+If no modifications are made to the Project Tags, the “Update Tags” button will remain disabled. It becomes active only when you edit an existing tag or add a new one.
+
+.. image:: images/Admin_ProjectDetails_UpdateTags_disabled.png
+
+.. note:: 
+  a. Each tag must include both a Key and a Value before a new entry can be added.
+  b. Tags can be removed at any time using the trash bin icon next to the corresponding entry.
+  c. Project tags are automatically applied to all provisioned resources, ensuring consistent and traceable metadata across the project.
 
 .. note:: Whenever you clicked on the budget it will navigate to the researcher-wise budget details page.
 
@@ -633,11 +707,11 @@ My Products Tab
 .. image:: images/Principal_Project_MyProducts.png
 
 .. note:: 
- a. When adding a project we are passing collaborator information. Through this, we are linking researchers to the project. 
- b. The project is independent of the researcher. We can create an empty project and add collaborators later. We can add collaborators through the "Manage" option which is on the project details screen.
- c. **My Projects** page of the Research Gateway will list all the existing projects created along with other details. Clicking on a specific project will lead to a project details page. Click on the specific project you can navigate to the project details page.
- d. The products which are updated in the last 30 minutes will be visible under the active filter.
- e. When the Principal Investigator logs-in, the user will be able to see the Active filter by default. And if the user selects a filter, the last chosen filter will be stored for the current session. Once the user logs-out and logs-in again the filter value will be reset to  Active.
+ a. When an Administrator switches into an Organization Unit (O.U.), they are directed to the My Projects screen by default.
+ b. When creating a project, you can optionally link collaborators (researchers) during setup. However, projects can also be created without collaborators and updated later using the “Manage” option on the Project Details screen.
+ c. Only collaborators can be assigned as Project Owners. A Project Owner can manage users and perform administrative actions like start, stop, archive, and budget updates.
+ d. The **My Projects** page displays all projects created, along with key details. Clicking on a project navigates to its Project Details page.
+ e. The Active filter displays projects with recent product activity (within the last 30 minutes). If a different filter is selected, it remains active during the session and resets to Active upon logout. 
 
 All Products Tab
 -----------------
@@ -1115,9 +1189,70 @@ You can search the keypair through the Keypair name and Project name.
 Ex: Type “Chiron” in the search area it should display the keypairs which are attached to the Chiron project.
 
 .. image:: images/Principal_KeyPairs_Search.png
+Audit Trail(For Principal Investigator)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As a Principal Investigator, you can use the Audit Trail screen to view security-related audits. Click on the “☰” option which is available on the left side header.
+
+.. image:: images/PrincipalInvestigator_AuditTrail_Navigation.png
+
+Click on the "Audit Trail" menu item. Through this, you can navigate to the Audit Trail page.
+
+.. image:: images/Principal_AuditTrail_DefaultPage.png
+
+If you try to search the non-existent word it will display a message like “No matching organizations found”. You can see the login and logout and failed login audits. Here you can search based on user, status, and status reason. If audits are not found through the search you can see messages like “No matching audits found”.
+
+.. image:: images/Principal_AuditTrail_SearchAction_NoMatchingAuditLogsFound.png
+
+.. image:: images/Principal_AuditTrail_Search.png
+
+You can filter the logs by Principal Investigator, researcher, and Project which will show the details of your own O.U. You can also filter the logs through the date. 
+
+.. image:: images/Principal_AuditTrail_FilterLogsByDropdown.png
+
+.. image:: images/Principal_AuditTrail_DateRangeDropdown.png
+
+You can see the audit event details in the :ref:`Appendix F<Appendix F>` 
 
 
-Studies(for Principal Investigator)
+Billing Accounts (Principal Investigator)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+As a Principal Investigator, you will be able to view monthly billing data on the account level data for the Organization Unit that the user is part of.
+
+**Navigation to the Billing Accounts**
+
+Login as the Principal Investigator user. Click on the "☰" option, which is available on the top-left side. Click on the Billing Accounts menu item to navigate to the Billing Accounts page.
+
+.. image:: images/PrincipalInvestigator_BillingAccounts_Navigation.png
+
+**KPIs**   
+
+At the top of this view, you can see the summary of Billing Accounts across all organizational units in the KPI cards. You can see the following KPI cards: 
+
+*  **Number of Accounts**: This is the total number of accounts in the Organizational Unit that the user is part of.  
+
+* **Current Month Billing**: This is the total month-to-date cost of accounts In the Organizational Unit that the user is part of.  
+
+* **Total Forecast Value**: This is the total forecast value cost across all accounts in the Organizational unit that the user is part of.  
+
+The following details are visible in table format: 
+ 
+.. csv-table::
+   :file: BillingAccountsTablePrincipalInvestigator.csv
+   :widths: 15, 15, 15
+   :header-rows: 1
+
+.. image:: images/PrincipalInvestigator_BillingAccounts_DefaultPage.png
+
+.. note::
+  a. If the Principal Investigator user is not assigned to any Organizational Unit, then they can only see this screen with this message: "You are not assigned to any OU. Contact your administrator." 
+  b. A forecast value will not be shown if the account has less than one full billing cycle of historical data available  
+  c. A Researcher user will not be able to navigate and see the Billing Accounts screen  
+
+Data Admin Features
+++++++++++++++++++++++
+
+Studies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 As a Principal Investigator, You can view the studies in the Research Gateway. Click on the “☰” Symbol which is available on the left side header. By clicking on the "Studies" menu item, the user will be navigated to the Studies details page.
 
@@ -1699,65 +1834,7 @@ Click on the delete action this will open a confirmation dialog box is opened an
 
 .. image:: images/Principal_StudyAccountstab_StudyAccount_Deleted.png
 
-Audit Trail(For Principal Investigator)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-As a Principal Investigator, you can use the Audit Trail screen to view security-related audits. Click on the “☰” option which is available on the left side header.
-
-.. image:: images/PrincipalInvestigator_AuditTrail_Navigation.png
-
-Click on the "Audit Trail" menu item. Through this, you can navigate to the Audit Trail page.
-
-.. image:: images/Principal_AuditTrail_DefaultPage.png
-
-If you try to search the non-existent word it will display a message like “No matching organizations found”. You can see the login and logout and failed login audits. Here you can search based on user, status, and status reason. If audits are not found through the search you can see messages like “No matching audits found”.
-
-.. image:: images/Principal_AuditTrail_SearchAction_NoMatchingAuditLogsFound.png
-
-.. image:: images/Principal_AuditTrail_Search.png
-
-You can filter the logs by Principal Investigator, researcher, and Project which will show the details of your own O.U. You can also filter the logs through the date. 
-
-.. image:: images/Principal_AuditTrail_FilterLogsByDropdown.png
-
-.. image:: images/Principal_AuditTrail_DateRangeDropdown.png
-
-You can see the audit event details in the :ref:`Appendix F<Appendix F>` 
-
-
-Billing Accounts (Principal Investigator)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-As a Principal Investigator, you will be able to view monthly billing data on the account level data for the Organization Unit that the user is part of.
-
-**Navigation to the Billing Accounts**
-
-Login as the Principal Investigator user. Click on the "☰" option, which is available on the top-left side. Click on the Billing Accounts menu item to navigate to the Billing Accounts page.
-
-.. image:: images/PrincipalInvestigator_BillingAccounts_Navigation.png
-
-**KPIs**   
-
-At the top of this view, you can see the summary of Billing Accounts across all organizational units in the KPI cards. You can see the following KPI cards: 
-
-*  **Number of Accounts**: This is the total number of accounts in the Organizational Unit that the user is part of.  
-
-* **Current Month Billing**: This is the total month-to-date cost of accounts In the Organizational Unit that the user is part of.  
-
-* **Total Forecast Value**: This is the total forecast value cost across all accounts in the Organizational unit that the user is part of.  
-
-The following details are visible in table format: 
- 
-.. csv-table::
-   :file: BillingAccountsTablePrincipalInvestigator.csv
-   :widths: 15, 15, 15
-   :header-rows: 1
-
-.. image:: images/PrincipalInvestigator_BillingAccounts_DefaultPage.png
-
-.. note::
-  a. If the Principal Investigator user is not assigned to any Organizational Unit, then they can only see this screen with this message: "You are not assigned to any OU. Contact your administrator." 
-  b. A forecast value will not be shown if the account has less than one full billing cycle of historical data available  
-  c. A Researcher user will not be able to navigate and see the Billing Accounts screen  
 
 Researcher Features
 +++++++++++++++++++
