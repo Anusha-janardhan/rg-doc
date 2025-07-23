@@ -12,37 +12,167 @@ This is a premium feature and available only to customer who are subscribed to t
 
  .. image:: images/SecureAccount_form2.png 
 
-b. Create a stack and Secure VPC using the cft in the project account in the same region where the setting is created, click the `link <https://github.com/RLOpenCatalyst/rgdeploy/blob/main/SRE/Network-CFTS/vpc-squid.yml>`_ to download the CloudFormation template (CFT) file from the GitHub repository.
- Please save the file with a friendly and identifiable name for future reference. 
+ b. Create a stack and Secure VPC using the cft in the project account in the same region where the setting is created, click the `link <https://github.com/RLOpenCatalyst/rgdeploy/blob/main/SRE/Network-CFTS/vpc-squid.yml>`_ to download the CloudFormation template (CFT) file from the GitHub repository.
+    Please save the file with a friendly and identifiable name for future reference. 
 
  .. note:: Secure VPC will be created as part of stack creation. ALB will be created as part of Secure Research Project creation in step 3. 
 
-c. Please note down the following output values from your CloudFormation stack outputs.
+ c. Please note down the following output values from your CloudFormation stack outputs.
 
- .. list-table:: 
-    :widths: 50
-    :header-rows: 1
+   .. list-table:: 
+      :widths: 50
+      :header-rows: 1
 
-    * - Network Details
-    * - vpc
-    * - publicSubnet1
-    * - publicSubnet2
-    * - privateSubnet
-    * - entryPointSG
-    * - workspaceSG
-    * - interfaceEndpointSG
+      * - Network Details
+      * - vpc
+      * - publicSubnet1
+      * - publicSubnet2
+      * - privateSubnet
+      * - entryPointSG
+      * - workspaceSG
+      * - interfaceEndpointSG
 
-d. Login to Research Gateway, Navigate to Settings > Project Accounts, click the three-dot menu (⋮) next to the appropriate account, select "Update network details", and enter the noted values in the corresponding fields.
+ d. Prepare and upload the Lambda ZIP package to an S3 bucket in the same region.
 
- .. image:: images/Principal_settings_update-Networkdetails.png
+   1. Clone the deployment repository from GitHub:
+
+   .. code-block:: bash
+
+      git clone https://github.com/RLOpenCatalyst/rgdeploy.git
+
+   2. Navigate to the Lambda resources directory:
+
+   .. code-block:: bash
+
+      cd rgdeploy/SRE/lambdaresources
+
+   3. Install the required Node.js dependencies:
+
+   .. code-block:: bash
+
+      npm install
+
+   This will create the necessary ``node_modules`` folder inside the directory.
+
+   4. Create a ZIP archive of the entire ``lambdaresources`` folder (including the dependencies):
+
+   .. code-block:: bash
+
+      cd ..
+      zip -r egress-copy.zip lambdaresources/
+
+   5. Upload the generated ``egress-copy.zip`` file to an S3 bucket in the same region where the CloudFormation stack will be deployed.
+
+   You can upload the ZIP using the AWS Console or AWS CLI:
+
+   .. code-block:: bash
+
+      aws s3 cp egress-copy.zip s3://<your-s3-bucket-name>/
+
+   .. note:: Ensure the S3 bucket is in the **same region** where the Lambda stack will be created, as cross-region Lambda deployments are not supported via S3.
+
+
+ e. Create a stack using the CloudFormation template that provisions both the Lambda function and the egress-related resources in the same project account and region where the setting is created.
+    Click the `link <https://github.com/RLOpenCatalyst/rgdeploy/blob/topic-release/SRE/Egress/Setup-templates/egressresources.yml>`_  to download the CloudFormation template and save the file with an identifiable name.
+
+    .. note:: Ensure that the Lambda ZIP file is already uploaded to an S3 bucket in the same region. You will be prompted to enter parameters such as the S3 bucket name, S3 object key, and Lambda function name during stack creation.
 
 ..
 
- .. image:: images/Principal_Setting_Network_details_form.png
+ f. After deploying the CloudFormation stack, create an inline policy to allow the RG Project Role to invoke the Lambda function via Function URL.
+
+   Follow these steps in the AWS Console:
+
+   1. Navigate to the **IAM** service.
+   2. Click on **Roles** from the left menu.
+   3. Search for the role named: ``RG-Portal-ProjectRole-PROD`` (or your project-specific role).
+   4. Select the role from the list to open its details.
+   5. In the **Permissions** tab, scroll to the bottom and click **Add inline policy**.
+   6. Select the **JSON** tab in the policy editor.
+   7. Paste the following JSON policy, replacing the placeholder `< Replace with Egress Store Lambda Arn >` with the actual **Lambda ARN** copied from the CloudFormation stack outputs:
+
+   .. code-block:: json
+
+      {
+         "Version": "2012-10-17",
+         "Statement": [
+               {
+                  "Effect": "Allow",
+                  "Action": "lambda:InvokeFunctionUrl",
+                  "Resource": "< Replace with Egress Store Lambda Arn >",
+                  "Condition": {
+                     "StringEquals": {
+                           "lambda:FunctionUrlAuthType": "AWS_IAM"
+                     }
+                  }
+               }
+         ]
+      }
+
+   8. Click **Review policy**.
+   9. Provide a policy name, for example: ``InvokeLambdaPolicy``.
+   10. Click **Create policy** to complete the inline policy attachment.
+
+  .. note:: This step is mandatory to allow Research Gateway to approve egress requests. Without this permission, **egress requests will fail to approve** since the Lambda function cannot be invoked from the portal.
+
+ g.  Please note down the following output values from your CloudFormation stacks:
+
+   .. list-table::
+      :widths: 50
+      :header-rows: 1
+
+      * - Egress Resource Details
+      * - Egress Store Bucket ARN
+      * - Egress Store KMS ARN
+      * - Egress Store Bucket Name
+      * - Egress Store Notification Bucket Name
+      * - Egress Store Lambda URL
+      * - Egress Store Lambda ARN
+
+ h. Login to Research Gateway, Navigate to Settings > Project Accounts, click the three-dot menu (⋮) next to the appropriate account, select "Update network details", and enter the noted values in the corresponding fields.
+
+  .. image:: images/Principal_settings_update-Networkdetails.png
 
 ..
 
- .. note:: The ALB Access Logging Bucket Name and S3 Access Logging Bucket Name fields are optional. However, if values are provided in the UI but not supported by the s3.yaml CloudFormation template, the ingress project creation will fail. Please ensure compatibility before entering these details.
+   .. image:: images/Principal_Setting_Network_details_form.png
+
+..
+
+  .. note:: The ALB Access Logging Bucket Name and S3 Access Logging Bucket Name fields are optional. However, if values are provided in the UI but not supported by the s3.yaml CloudFormation template, the ingress project creation will fail. Please ensure compatibility before entering these details.
+
+..
+
+ i. On the **Project Accounts** page in Research Gateway, once you have updated the network details, proceed to update the egress store configuration for the same account.
+
+ Click the three-dot menu (⋮) next to the relevant project account and select **Update egress store details**.
+
+ .. image:: images/Principal_settings_select-EgressStoreDetails.png
+
+..
+
+ This opens the **Egress Store Details** form. Enter the corresponding values copied from the CloudFormation stack outputs.
+
+ .. image:: images/Update-Egress-Resources-Popup.png
+
+..
+
+.. note:: All fields in the Update Egress Store Details form are mandatory, except for the **Egress Store Name**, which can be a user-defined value for easier identification within Research Gateway.
+
+   - The following values should come from the CloudFormation Stack outputs :
+     
+     - Egress Store Bucket ARN  
+     - Egress Store KMS ARN  
+     - Egress Store Bucket Name  
+     - Egress Store Notification Bucket Name
+     - Egress Store Lambda URL  
+     - Egress Store Lambda ARN
+     
+   - **Egress Store Name**: This is a logical name you define to identify the egress store in Research Gateway. It can be any meaningful name of your choice (for example: ``rg-egress-store``).
+
+Incorrect or incomplete values may result in failure of egress operations in downstream processes.
+
+All fields in the form are mandatory. Missing or incorrect values will result in egress functionality not working as expected.
 
 ..
 
@@ -105,38 +235,14 @@ d. Login to Research Gateway, Navigate to Settings > Project Accounts, click the
 
 ..
 
- .. note:: Without following all steps of Step 1 If you try to create Secure Research project you will see below toaster 
-
- .. image:: images/SecureResearchProject_incompleteSetup_errormessage.png 
-
- 
-**4. Enabling the Egress application** 
-
- a. Create a stack using the cft in the project account in the same region where the setting is created, click on this `link <https://rlcatalyst-researchportal.s3.us-east-2.amazonaws.com/EgressAppResourcesRG.yml>`_ it will download cft in your system.  
-
- b. Provide the below details of the CFT outputs to the RG support team to enable egress application in the project. 
-
-.. list-table::  
-   :widths: 50 
-   :header-rows: 1 
-
-   * - egressStoreDetails 
-   * - egressStoreBucketArn 
-   * - egressStoreKmsArn 
-   * - egressStoreBucketName 
-   * - egressStoreNotificationBucketName 
-   * - egressStoreName 
-   * - egressSNSTopic 
-
-
-**5. Creating Secure Research Linux Desktop instances.** 
+**4. Creating Secure Research Linux Desktop instances.** 
 
  Click on the Secure Research project and provision “Secure Research Linux Desktop” product. Select the internal study created in step 2 in product launch form and provision product.   
 
  Once the provisioned product is Active, connect via Remote desktop and browse the mounted study which was selected during product provisioning.  
 
  
-**6. Submitting Egress request for outputs** 
+**5. Submitting Egress request for outputs** 
 
  An egress store is created by the Data Admin. A researcher does not have direct access to this store. 
 
@@ -153,34 +259,73 @@ d. Login to Research Gateway, Navigate to Settings > Project Accounts, click the
 
 **Follow below steps to Submit Egress request for outputs** 
 
- a. Please login into AWS console and go to the location where egress store bucket is located.  
- 
- b. Navigate to Workspace folder of your provisioned product.  
- 
- c. Upload files in this folder. note: empty folders will not be listed in the path  
+ a. Click on your Provisioned Product (e.g., SecureWorkspace). You will land on the Product Details tab.
 
- d. Once step c is completed login into RG and go inside a particular provisioned product and refresh the page to see the uploaded file in Egress Store tab and click on Submit Egress Request button which is enabled only when there are any new files uploaded. 
+ b. Under the CONNECT section on the right panel, click the Remote Desktop button.This opens a new tab with a NICE DCV session connected to your provisioned environment.
+
+ c. Inside the remote desktop, open the File Explorer.Locate and open the Egress Store drive.
+
+ d. Copy or upload the files you want to export into this directory.
+
+   .. Note:: Empty folders will not be displayed or processed during the egress request.
+
+ e. Return to the Research Gateway portal, go to the Egress Store tab of your provisioned product, click Refresh to load the uploaded files, and then click Submit Egress Request once the button is enabled.
 
  .. image:: images/Secureproduct_EgressStore_SubmitRequestbutton.png
 
+**6. Approval Flow for Egress Requests**
 
-**7. Approval flow for Egress requests** 
+Once a researcher submits an egress request, the user with **Data Admin privileges** will have access to an additional tab named **Egress Requests** within the project.
 
- a. The submitted request needs to be approved first by Information Governance Lead and then it needs to be approved by Researcher IT Admin. 
+.. image:: images/Principal_EgressRequest_tab.png
 
- b. The egress request notifies the Information Governance Lead. 
+They can view, review, approve, or reject all egress requests submitted under their project.
 
- c. The Information Governance Lead evaluates the egress request by inspecting the files submitted via email notification that he has received. 
+**Steps for Egress Request Review and Approval**
 
- d. The Information Governance lead can login into the application and search for it request using id (id can be found in the mail which gives the notification of a request that needs to be approved) and he n then approve or rejects the request from egress application with proper justification. 
+   1. Navigate to the **Egress Requests** tab under the respective project.
 
- e. The Research IT will then receive an email notification to evaluate the request that was approved by Information Governance Lead. 
+   2. You will see the list of submitted egress requests along with details such as:
 
- f. Research IT then approves or rejects the request.  
+      - Request ID  
+      - Request Date  
+      - Requested By (email)  
+      - Status (e.g., APPROVED, REJECTED, PENDING)
 
- g. If the request is approved, then the Information Governance Lead can see the Download option in the request dialog box, where he can the download the file content as a zip and then share this via email to the researcher.  
+      .. image:: images/Egress-Request-List.png
 
- 
+   3. Click the context menu (⋮) next to a request. You will see the following options:
+
+      - **Review**
+      - **Approve**
+      - **Reject**
+
+      .. image:: images/Egress-Request-Context-Menu.png
+
+**Actions**
+
+   - **Approve or Reject Request:**
+
+   - Selecting **Approve** or **Reject** will open a popup window where you can enter a commit message (reason or note for the action).
+   - Once you click **Submit**, the system will process the action accordingly.
+
+   - **Review Request:**
+
+   - If this is the **first time** reviewing the request:
+
+      - You will be taken to the **Review Workspace Launch Form**.
+      - Once the workspace becomes active, you can connect to it using **Remote Desktop**.
+      - In the workspace, under the **Egress Stage Mount**, a folder will be created using the **Request ID**.
+      - All files submitted by the researcher will be available inside this folder for review.
+
+   - If the workspace is already **active or stopped**:
+
+      - Clicking **Review** will take you to the **existing workspace**.
+
+   - If the workspace has been **terminated**:
+
+      - Clicking **Review** will redirect you back to the **Launch Form** to initiate a new workspace session.
+
 **8.  Add Ingress Gateway Project** 
 
  You can create Ingress Gateway project for the Secure Research Environment account from Create Project form by selecting Project Type as Ingress Gateway. 
