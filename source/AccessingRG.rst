@@ -3,27 +3,40 @@ Accessing the RLCatalyst Research Gateway
 
 .. contents::
 
-Sign In Process
----------------
+Sign in with Okta
+-----------------
 
-Access the URL provided to you for your instance of RLCatalyst Research Gateway.
+Open your **Research Gateway URL** in a browser.
+Click on the **“Continue with Okta”** button under the *With other accounts* section.
 
-.. image:: images/User_Login_Window.png
+.. image:: images/User_Sign_in.png
 
-Fill the following details
+You will be redirected to your organization's Okta login page:
 
-.. list-table:: 
-   :widths: 50, 50
-   :header-rows: 1
+Enter your **username** and **password**.
+Click on **Sign in** to proceed.
 
-   * - Field
-     - Details
-   * - Email
-     - <Enter your Email ID that is used for login>
-   * - Password
-     - <Enter your password for this user>
+.. image:: images/User_okta_sign_in.png
 
-Click on the "Sign In" button. We can login successfully.
+Upon successful authentication, you will be redirected back to the Research Gateway dashboard, which serves as the landing page for accessing your projects and services.
+
+Sign in with Existing User (Email Login)
+----------------------------------------
+
+Open your **Research Gateway URL** in a browser.
+Under *With existing account*:
+
+Enter your **registered email address**.
+
+.. image::  images/User_signin_ExistingUser.png
+
+Click on the **Next** button.You will be redirected to a password entry screen.
+
+.. image:: images/User_signin_ExistingUser_password.png
+
+Enter your **password** and click **Continue**.
+
+Upon successful authentication, you will be redirected back to the Research Gateway dashboard, which serves as the landing page for accessing your projects and services.
 
 Sign Out Process
 ----------------

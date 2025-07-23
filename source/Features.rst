@@ -10,11 +10,11 @@ Administrator Features
 
 An Administrator user can perform the following actions.
 
-  * :ref:`Add an Organizational Unit<Adding Organizational Units>`
+  * :ref:`Add an Organization<Adding Organization>`
   * :ref:`Add AWS Accounts for projects<Adding AWS Accounts>`
   * View `Budgets`_
   * View the `Audit Trail`_
-  * Add or Assign `Users`_
+  * User Management: Add, Assign and Delete `Users`_
   * Assign `Catalog`_ Items
   * Switch to an Organization Unit (OU)
   * :ref:`Add a new Project<How to add a new Project>`
@@ -35,7 +35,7 @@ Login as the Administrator user. Click on the “☰” option which is availabl
 
 **Budget KPIs**
 
-At the top of this view, you can see the summary of budgets across all organizational units in the KPI cards.
+At the top of this view, you can see the summary of budgets across all organizations in the KPI cards.
 You can see the following KPI cards:
 
   * **Total Budget Allotted**: This is the sum total of the budget allocated for all projects in the Organization.
@@ -59,9 +59,6 @@ The following details are visible in a table format:
 
 The Administrator user can download the Budget details through the “Export as CSV” option. 
 
-When the Consumed Budget exceeds a threshold (say 80%), the budget management screen should show an alert in the UI and the user will also get an email notification.
-
-.. image:: images/Admin_BudgetExceedThreshold_Email.png
 
 **Project-wise budget view**
 
@@ -123,7 +120,7 @@ If the results are not matched with the searched item it will show a message lik
 
 .. image:: images/Admin_User_SearchAction_NoMatchingUserFound.png
 
-You can filter by O.U, Filter by role(Admin/Researcher/Principal Investigator), and sort by username(Asc/Desc), user-role(Asc/Desc), and creation date(Asc/Desc).
+You can filter by O.U, Filter by role(Admin/Researcher/Data Admin), and sort by username(Asc/Desc), user-role(Asc/Desc), and creation date(Asc/Desc).
 
 .. image:: images/Administrator_Users_FilterbyRole.png
 .. image:: images/Administrator_Users_FilterByOU_filter.png
@@ -158,8 +155,8 @@ Fill in the following details
      - <Please enter the first name of the user>
    * - Last Name
      - <Please enter the last name of the user> 
-   * - Organizational Unit
-     - <Select an organizational unit in the drop-down list>
+   * - Organization
+     - <Select an organization in the drop-down list>
    * - Tags
      - <Add tags to associate with the user>
 
@@ -230,7 +227,7 @@ CSV file should contain the following details
 
 .. note:: 
 
- a. If the user role is other than valid values (0 = Researcher, 1 = Principal Investigator, 2 = Administrator ), it will be automatically reset to 0  (researcher) and the user will be created with the role of researcher.
+ a. If the user role is other than valid values (0 = Researcher, 2 = Administrator, 3 = Data Admin ), it will be automatically reset to 0  (researcher) and the user will be created with the role of researcher.
 
  b. Users will see a red-colored toaster with a failure message if they have added invalid headers, more than the permitted number of user records in a single CSV file, or not even one user record.
 
@@ -270,7 +267,7 @@ There is a contextual menu (three-dot ⋮ icon) available at the top-right corne
 
 .. image:: images/Admin-Manage-ou.png
 
-This opens the Assign to Organization dialog box. Here, you can select the appropriate Organizational Unit (O.U.) from the dropdown list where the user should be assigned. If the user needs access to more than one O.U., the admin can click on the “+ Add New” option to assign multiple O.U.s. Among the selected O.U.s, one must be marked as the default, which determines the user's landing O.U. after login.
+This opens the Assign to Organization dialog box. Here, you can select the appropriate Organization from the dropdown list where the user should be assigned. If the user needs access to more than one O.U., the admin can click on the “+ Add New” option to assign multiple O.U.s. Among the selected O.U.s, one must be marked as the default, which determines the user's landing O.U. after login.
 
 .. image:: images/Admin-Manage-ou-popup.png
 
@@ -332,15 +329,15 @@ The following details are editable
      - <Please enter the first name of the user> 
    * - Last Name 
      - <Please enter the last name of the user>  
-   * - Organizational Unit 
-     - <Select an organizational unit in the drop-down list> 
+   * - Organization
+     - <Select an organization in the drop-down list> 
    * - Tags 
      - <Add tags to associate with the user> 
 
 .. note:: 
-   a. If the user is unassigned, the Organizational unit field will be enabled and can be assigned to OU. 
+   a. If the user is unassigned, the Organization field will be enabled and can be assigned to OU. 
    b. If the user is already assigned Organization unit field will be disabled. 
-   c. Only if any of the First Name, Last Name, Organizational Unit and tags fields are edited Edit User Button will be enabled. 
+   c. Only if any of the First Name, Last Name, Organization and tags fields are edited Edit User Button will be enabled. 
 
 
 Click on the Edit User button and edited user information will be visible on the user card. Once the user clicks on the Edit User button they will be able to see a green color toaster message. 
@@ -433,7 +430,7 @@ Log in as the Administrator user. Click on the "☰" option which is available o
 
 **KPIs**  
 
-At the top of this view, you can see the summary of Billing Accounts across all organizational units in the KPI cards. You can see the following KPI cards:  
+At the top of this view, you can see the summary of Billing Accounts across all organizations in the KPI cards. You can see the following KPI cards:  
 
  * **Number of Organizations**: This is the number of Organizations that have consumed cost.  
  * **Number of Accounts**: The number of unlinked accounts that are linked to the organization and have consumed costs is shown here. 
@@ -463,7 +460,10 @@ Switch by Clicking on the OU Card
 To switch to a different Organization Unit (OU), users can click directly on any of the OU cards displayed on the "My Organizations" page. When an OU card is selected, a pop-up titled Organization Details appears, showing the name, description, and other relevant information for that OU. At the bottom of this pop-up, users can click the "Switch to Organization" button, which will immediately redirect them to the selected OU’s workspace.
 
 .. image:: images/Switch_by_Clicking_on_the_OU_Card.png
+..
+.. image:: images/Admin_Switch_ou_screen.png 
 
+.. note:: When an **Administrator** switches into an Organization, they will only see **Standard** and **Secure Research** projects.
 Switch via User Dropdown Menu
 -------------------------------
 
@@ -479,7 +479,7 @@ Users can choose the desired OU from this list and click the "Switch to Organiza
 
 .. image:: images/Switch_by_User_Dropdown_Menu2.png
 
-Once an Administrator switches into a specific Organization Unit (O.U.), they will be redirected to the My Projects page by default. This page displays the list of projects associated with the selected O.U.
+Once an Administrator switches into a specific Organization Unit (O.U.), you will be redirected to the My Projects page by default. This page displays the list of projects associated with the selected O.U.
 
 As an Administrator, you can create both accounts and projects. Each project is associated with a budget, which includes a specific dollar amount funded through a grant to the organization. A project can utilize resources only if there is a sufficient budget to meet its forecasted requirements.
 
@@ -505,8 +505,13 @@ Clicking on a specific project will lead to a project details page.
 
 .. image:: images/Principal_ProjectDetails.png  
 
+.. note:: When an **Administrator** switches into an Organization, they will only see **Standard** and **Secure Research** projects.
+
 How to add a new Project 
 ^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note::  **Admin** has the ability to create only **Standard Projects** and :ref:`Secure Projects<create secure research project>`.
+
 Login to the Research Gateway. Click on the  “+Add New” button on the My Project page or use details from :ref:`Appendix A<Appendix A>`  to create an account. Once account creation is successful it will navigate to the "Create Project" screen. The project application form is open. 
 
 .. image:: images/Admin_CreateProject_1.png
@@ -716,7 +721,7 @@ My Products Tab
 All Products Tab
 -----------------
  
-1. Principal Investigators will now see all the products launched by all the project team members in the All Products tab. They will also be able to perform Stop and Terminate actions on the products using the 3-dotted icon which is available at the right side of the table. 
+1. Admin will now see all the products launched by all the project team members in the All Products tab. They will also be able to perform Stop and Terminate actions on the products using the 3-dotted icon which is available at the right side of the table. 
 
 .. image:: images/Principal_Project_AllProducts.png
 
@@ -748,9 +753,9 @@ If there is no action happening in the provisioned RStudio product by default it
  
 .. _Users_PI:
 
-Users (for Principal Investigator)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-As a Principal Investigator, you can use the "Users" screen to view all users across all your projects in Research Gateway. Click on the “☰” option which is available on the left side header.
+Project-level Users Screen
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+As a Admin, you can use the "Users" screen to view all users across all your projects in Research Gateway. Click on the “☰” option which is available on the left side header.
 
 Click on the **Users** menu item to navigate to the Users page.
 
@@ -772,19 +777,19 @@ If the results are not matched with the searched item it will show a message lik
 
 .. image:: images/Principal_Users_Searchnotmatched.png
 
-You can filter by role(Researcher/Principal Investigator), and sort by username(Asc/Desc), user-role(Asc/Desc), and creation date(Asc/Desc).
+You can filter by role(Researcher), and sort by username(Asc/Desc), user-role(Asc/Desc), and creation date(Asc/Desc).
 
-.. image:: images/Principal_Users_FilterByRole.png
-.. image:: images/Principal_Users_SortBy.png
+.. image:: images/Project_Users_FilterByRole.png
+.. image:: images/Project_Users_SortBy.png
 
 The user can see an active filter with enable and disable options. You can toggle the view between active or all users.
 
-.. image:: images/Principal_Users_ActiveUserToggle.png
+.. image:: images/Project_Users_ActiveUserToggle.png
 .. _`Adding Users_PI`:
 
 You can add a new user through the “+Add New” button which is on the right side of the screen. 
 
-.. image:: images/Principal_Users_AddNewUser.png
+.. image:: images/Project_Users_AddNewUser.png
 
 1. Click on the “Add New User” button to add a single user via the “Add User” form.
 
@@ -872,7 +877,7 @@ CSV file should contain the following details
 
 .. note::
 
- a. If the user role is other than valid values (0 = Researcher, 1 = Principal Investigator), it will be automatically reset to 0  (researcher) and the user will be created with the role of a researcher.
+ a. If the user role is other than valid values (0 = Researcher ), it will be automatically reset to 0  (researcher) and the user will be created with the role of a researcher.
 
  b. Users will see a red-colored toaster with a failure message if they have added invalid headers, more than the permitted number of user records in a single CSV file, or not even one user record.
 
@@ -918,21 +923,14 @@ There is a contextual menu which is at the right side of the card. On clicking t
 
 .. image:: images/Principal_Users_DisableAction_PopUp.png
 
-**Resend verification mail**
-
-There is a contextual menu which is at the right side of the card. On clicking that, you can see the actions that can be performed. Through the "Resend verification mail" option you can get another verification email to the registered email address. On successful completion, you can see the green color toaster message. Check the verification email delivered to the registered email address and click on the verification link to activate the account.  
-
-.. image:: images/Principal_Users_ResendVerificationEmail.png
-
-.. note:: The "Resend verification mail" option is available only if the user is inactive.
 
 **Edit**
 
 There is a contextual menu which is at the right side of the card. On clicking that, you can see the actions that can be performed. Through the "Edit" option you can edit User Information. On successful completion, you can see the green color toaster message. 
 
-.. image:: images/Principal_Users_EditAction.png
+.. image:: images/Project_Users_EditAction.png
 
-.. image:: images/Principal_Users_EditUserForm.png
+.. image:: images/Project_Users_EditUserForm.png
 
 The following details are editable
 
@@ -953,7 +951,7 @@ The following details are editable
 
 Click on the Edit User button and edited user information will be visible on the user card. Once the user clicks on the Edit User button they will be able to see a green color toaster message. 
 
-.. image:: images/Principal_User_EditUser_SuccessMessage.png
+.. image:: images/Project_User_EditUser_SuccessMessage.png
 
 .. _add-researchers-existing-project:
 
@@ -965,9 +963,31 @@ There is an edit functionality for the project entity. The project is independen
 
 Select the Researchers and click on the “Update List” button. You can see the “Updated Successfully” toaster message in the UI and see events regarding update action in the “Events” tab. You can’t unselect the researchers who have associated products.
 
-.. image:: images/Principal_ProjectDetails_AssignUsers.png
+.. image:: images/Admin_ProjectDetails_AssignUsers.png
  
 .. image:: images/Principal_ProjectDetails_AssignUsers_Completed.png
+
+.. note:: You cannot unselect researchers who have associated products within the project. 
+
+How to add researcher as poject owner
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+To assign a project owner, click on the **“Manage” (Pencil icon)** next to the **Project Owner** field in the **Project Details** tab.
+
+  - Once clicked:
+  - Use the **search bar** to find the eligible researcher (only users already assigned to the project will be listed).
+  - Select the desired user by enabling the checkbox beside their email.
+  - Click the **“Update List”** button to confirm the assignment.
+  - A **“Updated Successfully”** message will appear and the action will be recorded in the **“Events”** tab.
+
+.. image:: images/Admin_ProjectDetails_AssignProjectOwner.png
+
+.. note:: 
+  a. Only researchers who have been assigned to the project can be selected as Project Owner.  
+  b. The Project Owner gains elevated permissions including:
+     - Managing users within the project  
+     - Starting, stopping, or archiving the project  
+     - Managing project budgets
+
 
 How to edit the catalog type 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1046,6 +1066,11 @@ The project status changed to “Stopped”. In a Stopped state all underlying r
 
 **Archive Action**
 
+.. note::   
+  a. If the project has any **active workspace**, the **Archive** button will be **disabled**.
+  b. The **Archive** button becomes available again **only after** all workspaces in the project have been **terminated**.
+  c. This condition **does not apply to the project storage**—you can choose to delete it at the time of archiving, regardless of its state.
+
 Click on the "Archive" button which is available on the right side, it was routed to my projects page and showed the message “Archiving project started” and later the project card got removed.
 
 .. image:: images/Principal_ProjectDetails.png
@@ -1058,7 +1083,7 @@ Project Storage can be deleted while archiving a project. You will now be prompt
 
 **Add Budget Action**
 
-The “Add Budget” action will provide Principal Investigators with a way to add more budget to the project. Clicking on the “Add Budget” button will bring up a dialog box where you can add any whole number greater than 0.
+The “Add Budget” action will provide Admins with a way to add more budget to the project. Clicking on the “Add Budget” button will bring up a dialog box where you can add any whole number greater than 0.
 
 .. image:: images/Principal_ProjectDetails.png
 
@@ -1071,18 +1096,18 @@ The “Add Budget” action will provide Principal Investigators with a way to a
   a. If there are any failed provisioned products in my products panel you cannot do actions on the project. You need to terminate that product.
   b. Once the project is failed, We can do repair to the project. Click on the "Repair" button which is on the project details page. We can see related events on the events page.
   c. Once the project is failed we can do catalog sync on a project. Click on the "Sync" button which is on the project details page. We can see related events on the events page.
-  d. If the project is in a “Paused” or "Active"  state the Principal Investigator user can “Add Budget”. If the budget amount added, brings the project back within the budget threshold, the “Resume” button will be visible to the user. 
-  e. If the project is no longer required, the Principal Investigator user can click on the “Archive” button which is on the project details page. We can see related events on the events page.
+  d. If the project is in a “Paused” or "Active"  state the Admin user can “Add Budget”. If the budget amount added, brings the project back within the budget threshold, the “Resume” button will be visible to the user. 
+  e. If the project is no longer required, the Admin user can click on the “Archive” button which is on the project details page. We can see related events on the events page.
 
 
-Budgets (for Principal Investigator)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Project Level Budget screen 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-As a Principal Investigator, you can view the organization-wide budgets from the **Budgets** screen with a drill-down to the project, researcher and product level.
+As an Administrator, you can view the organization-wide budgets from the **Budgets** screen with a drill-down to the project, researcher and product level.
 
 **Navigation to Budget screen**
 
-Sign in as the Principal Investigator. Click on the “☰” Symbol which is available on the left side header. Click on the "Budgets" menu item through this, you can navigate to the Budget Details page.  
+Click on the “☰” Symbol which is available on the left side header. Click on the "Budgets" menu item through this, you can navigate to the Budget Details page.  
 
 .. image:: images/PrincipalInvestigator_Budgets_Navigation.png
 
@@ -1104,10 +1129,6 @@ You can see Project-wise Budget details in the table format:
    :header-rows: 1
  
 You can download the budget details through the “Export as CSV”  option.
-
-.. note:: When Consumed Budget exceeds a threshold (say 80%), the budget management screen should show an alert in the UI and the user will also get an email notification.
-
- .. image:: images/Principal_BudgetExceedThreshold_Email.png
  
 You can see researcher budget details which are linked to particular products and you can see configured products information in the Researcher-wise Budget details page
 
@@ -1117,10 +1138,10 @@ You can see researcher budget details which are linked to particular products an
 
 .. _Catalog_PI:
 
-Catalog (for Principal Investigator)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Project level catalog Screen
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-As a Principal Investigator, you can use the “Catalog” screen to view all catalog products across Research Gateway. Click on the “☰” option which is available on the left side header. You can see the  following details: 
+As an Administrator, you can use the “Catalog” screen to view all catalog products across Research Gateway. Click on the “☰” option which is available on the left side header. You can see the  following details: 
    
 .. image:: images/PrincipalInvestigator_Catalog_Navigation.png
 
@@ -1128,7 +1149,7 @@ Click on the **Catalog** menu item to navigate to the Catalog screen.
 
 .. image:: images/Principal_Catalog_DefaultPage.png
 
-You can see the standard catalog products on the listing page. To assign a set of items to an Organizational Unit, select the items by checking the checkbox which is at the right corner of each product card. Then click the  "Assign selected to a project" button.
+You can see the standard catalog products on the listing page. To assign a set of items to an Organization, select the items by checking the checkbox which is at the right corner of each product card. Then click the  "Assign selected to a project" button.
 
 .. image:: images/Principal_Catalog_AssignToProject_PopUp.png
 
@@ -1158,9 +1179,9 @@ If we could not find any products related to the filter you can see a message li
 
 .. image:: images/Principal_Catalog_SearchAction_NoMatchingProductsFound.png
 
-Key Pairs(for Principal Investigator)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The Key Pairs screen can be used by the Principal Investigator to view keypair details across projects. Click on the “☰” Symbol which is available on the left side header. By clicking on the "Key Pairs" menu item, the user will be navigated to the Key Pairs details page.
+Project level Key Pairs
+^^^^^^^^^^^^^^^^^^^^^^^
+The Key Pairs screen can be used by the Admin to view keypair details across projects. Click on the “☰” Symbol which is available on the left side header. By clicking on the "Key Pairs" menu item, the user will be navigated to the Key Pairs details page.
 
 .. image:: images/PrincipalInvestigator_Keypairs_Navigation.png
   
@@ -1189,10 +1210,10 @@ You can search the keypair through the Keypair name and Project name.
 Ex: Type “Chiron” in the search area it should display the keypairs which are attached to the Chiron project.
 
 .. image:: images/Principal_KeyPairs_Search.png
-Audit Trail(For Principal Investigator)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Project level Audit Trail
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-As a Principal Investigator, you can use the Audit Trail screen to view security-related audits. Click on the “☰” option which is available on the left side header.
+As an Administrator, you can use the Audit Trail screen to view security-related audits. Click on the “☰” option which is available on the left side header.
 
 .. image:: images/PrincipalInvestigator_AuditTrail_Navigation.png
 
@@ -1206,7 +1227,7 @@ If you try to search the non-existent word it will display a message like “No 
 
 .. image:: images/Principal_AuditTrail_Search.png
 
-You can filter the logs by Principal Investigator, researcher, and Project which will show the details of your own O.U. You can also filter the logs through the date. 
+You can filter the logs by Data Admin, researcher, and Project which will show the details of your own O.U. You can also filter the logs through the date. 
 
 .. image:: images/Principal_AuditTrail_FilterLogsByDropdown.png
 
@@ -1215,25 +1236,24 @@ You can filter the logs by Principal Investigator, researcher, and Project which
 You can see the audit event details in the :ref:`Appendix F<Appendix F>` 
 
 
-Billing Accounts (Principal Investigator)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-As a Principal Investigator, you will be able to view monthly billing data on the account level data for the Organization Unit that the user is part of.
+Project level Billing Accounts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+As an Administrator, you will be able to view monthly billing data on the account level data for the Organization Unit that the user is part of.
 
 **Navigation to the Billing Accounts**
-
-Login as the Principal Investigator user. Click on the "☰" option, which is available on the top-left side. Click on the Billing Accounts menu item to navigate to the Billing Accounts page.
+Click on the "☰" option, which is available on the top-left side. Click on the Billing Accounts menu item to navigate to the Billing Accounts page.
 
 .. image:: images/PrincipalInvestigator_BillingAccounts_Navigation.png
 
 **KPIs**   
 
-At the top of this view, you can see the summary of Billing Accounts across all organizational units in the KPI cards. You can see the following KPI cards: 
+At the top of this view, you can see the summary of Billing Accounts across all organization in the KPI cards. You can see the following KPI cards: 
 
-*  **Number of Accounts**: This is the total number of accounts in the Organizational Unit that the user is part of.  
+*  **Number of Accounts**: This is the total number of accounts in the Organization that the user is part of.  
 
-* **Current Month Billing**: This is the total month-to-date cost of accounts In the Organizational Unit that the user is part of.  
+* **Current Month Billing**: This is the total month-to-date cost of accounts In the Organization that the user is part of.  
 
-* **Total Forecast Value**: This is the total forecast value cost across all accounts in the Organizational unit that the user is part of.  
+* **Total Forecast Value**: This is the total forecast value cost across all accounts in the Organization that the user is part of.  
 
 The following details are visible in table format: 
  
@@ -1245,16 +1265,412 @@ The following details are visible in table format:
 .. image:: images/PrincipalInvestigator_BillingAccounts_DefaultPage.png
 
 .. note::
-  a. If the Principal Investigator user is not assigned to any Organizational Unit, then they can only see this screen with this message: "You are not assigned to any OU. Contact your administrator." 
-  b. A forecast value will not be shown if the account has less than one full billing cycle of historical data available  
-  c. A Researcher user will not be able to navigate and see the Billing Accounts screen  
+  a. A forecast value will not be shown if the account has less than one full billing cycle of historical data available  
+  b. A Researcher user will not be able to navigate and see the Billing Accounts screen  
 
 Data Admin Features
 ++++++++++++++++++++++
 
+A Data Admin user can perform the following actions.
+
+      * :ref:`Add an study account<Create Study Account to create Study>`
+      * View and manage `Egress requests` across all OUs.
+      * View `Budgets`
+      * View the `Audit Trail`
+      * Add a new Project
+      * View and manage Studies
+
+Login into the Research Gateway. The user landed on the main dashboard. , where all associated **Organizations** are displayed.
+
+.. image:: images/DataAdmin_maindashboard.png
+
+The Organizations page of the Research Gateway lists all the existing Organizations created, with some details of each organization displayed on the card.
+
+.. image:: images/DataAdmin_ou_pop.png
+
+.. note:: **Data Admin** users cannot create new **Organizations**. Their access is limited to viewing existing OUs.
+
+.. _Create Study Account to create Study:
+Create Study Account to create Study
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As a Data Admin, you can bring in an existing S3 bucket from any AWS account and register it as an External Study. This enables the bucket to be used and mounted in workspaces across multiple projects, regardless of the AWS account associated with those projects.
+
+.. note:: An External Study is not restricted to a single Project Account and can be shared and accessed across all Organizations in the system, making it ideal for use cases where the data resides in a central or externally managed AWS account.
+
+To be able to create an External study and use it in a Project you need to first Add the Study Account from the Settings Page 
+
+**Adding an AWS Study account to create an External Study** 
+
+Login into the Research Gateway. Click on the dropdown bar which is above the header. Choose the “Settings” option 
+
+.. image:: images/DataAdmin-drop-down.png
+
+Click on the “Settings” menu item. The Study Accounts page is opened.
+
+.. image:: images/DataAdmin-nostudyaccount.png
+
+.. note::
+  a. Study account creation is restricted to the Data Admin role. 
+  b. All Data Admins can view, access, and manage studies using any available Study Account, including creating external studies.
+
+Click on the “+Add New” button on the Study Accounts page. This will open the Add Account form. 
+
+.. image:: images/DataAdmin_StudyAccountForm.png
+
+Fill in the following details 
+
+.. list-table:: 
+   :widths: 50, 50
+   :header-rows: 1
+
+   * - Attribute
+     - Details
+   * - Account Name
+     - <Account Name>
+   * - Account Key
+     - <Account Key> [It should be a minimum of 16 characters and a maximum of 128 characters]
+   * - Secret Key
+     - <Secret Key> [It should be a minimum of 40 characters and a maximum of 128 characters]
+   * - Region
+     - <Select a region from the drop-down list> 
+   * - Account Number
+     - <Enter an AWS Account Number> [It should be a 12-digit number]
+  
+
+Click on the “Verify” button, it will check whether the provided details are valid or not. If details are valid, it will show a verified account message with a green color tick mark below the header otherwise it will throw an error message accordingly. 
+
+.. image:: images/DataAdmin_Accountdetails.png
+
+.. image:: images/DataAdmin-Studyaccountverify.png
+
+.. image:: images/DataAdmin-AddStudyAccount.png
+
+Once a study account is added successfully, you will be able to see the study account added and will be able to see a 3-dotted icon which is available on the right side of the account  
+
+.. image:: images/DataAdmin_StudyAccount_AddedSuccessfully.png
+
+You will also see a three-dotted icon on the right side of the newly added account.
+
+.. image:: images/DataAdmin_StudyAccount_3dotsicon.png
+
+Clicking on the three-dotted icon reveals the following options:
+
+**Assign O.U.**: Assign the Study Account to a specific Organization.
+
+**Unassign O.U.**: Remove the assigned OU from the Study Account.
+
+**Delete**: Delete the Study Account.
+
+Assigning an O.U.
+-----------------
+
+Click Assign O.U. from the menu.A popup titled "Assign to an Organization" will appear.
+
+.. image:: images/DataAdmin_AssignOUPopup.png
+..
+.. image:: images/DataAdmin_StudyAccount_No_OU.png
+
+.. note:: If there are no Organizations available, a message will appear stating:"There are no Organizations. Please create some Organizations."You must create at least one OU before assigning the Study Account.
+
+From the drop-down, select one OU from the list of available Organizations.Click Assign to complete the mapping.
+
+.. image:: images/DataAdmin_StudyAccount_SelectOU.png
+
+..
+
+.. image:: images/DataAdmin_StudyAccount_AssignOU.png 
+
+..
+
+.. image:: images/DataAdmin_StudyAccount_AssignOUSuccessfully.png
+
+.. note:: Once a Study Account is assigned to an OU, any External Study created using that account will be automatically mounted to that OU, can be assigned to projects, and used to provision workspaces with that study.
+
+unassigning an O.U.
+-------------------
+
+Click Unassign O.U. from the menu.A popup titled "Unassign Organization" will appear.
+
+.. image:: images/DataAdmin_StudyAccount_UnassignOUPopup.png
+
+From the drop-down, select the OU you want to unassign. Only currently assigned OUs will be listed.Click Unassign to remove the association.
+
+.. image:: images/DataAdmin_studyAccount_unassignou.png
+ 
+..
+
+.. image:: images/DataAdmin_StudyAccount_UnassignSuccessfully.png
+
+.. note:: When a Study Account is unassigned from an OU, any External Study linked to that OU will also be removed from access in that OU.
+
+Deleting a Study Account
+------------------------
+
+Click Delete from the three-dot menu.A confirmation prompt will appear.Confirm the deletion.
+
+.. image:: images/DataAdmin-StudyAccount_DeleteAccount.png
+
+.. warning:: Deleting a Study Account is irreversible. All associated external studies and OU mappings will be removed.
+
+.. _Egress requests:
+Egress Requests
+^^^^^^^^^^^^^^^
+As a Data Admin, you can view and manage organization-wide data egress requests from the **Egress Requests** screen.
+
+**Navigation to the Egress Requests**
+
+Log in as the Data Admin user. Click on the “☰” option which is available on the top-left side. Click on the **Egress Requests** menu item to navigate to the Egress Requests page.
+
+.. image:: images/DataAdmin_EgressRequests.png
+
+When a Data Admin navigates to the Egress Requests tab, all PENDING egress requests are shown by default.
+
+.. image:: images/DataAdmin_EgressRequest_table.png 
+
+These requests are displayed in a structured table that provides a quick overview of each request’s key details.
+
+.. list-table::  
+   :widths: 90, 90  
+   :header-rows: 1 
+
+   * - Field 
+     - Details 
+   * - Request ID
+     - A unique system-generated identifier for each request.
+   * - Request Date
+     - Timestamp indicating when the request was submitted.
+   * - Requested by (email)
+     - Email address of the user who created the request.
+   * - Organization
+     - Name of the organization (OU) to which the request belongs.
+   * - Project
+     - The project associated with the request.
+   * - Status
+     - Current state of the request (e.g., PENDING, APPROVED). 
+   * - Actions
+     - Three-dot menu to take actions like Approve, Reject, Review and View.
+
+A search bar is available at the top-right corner of the Egress Requests screen, allowing you to search for requests by Request ID or email. 
+
+.. image:: images/DataAdmin-EgressRequest-searchbar.png
+
+If the results are not matched with the searched item it will show a message like “You currently don't have any egress requests”.
+
+.. image:: images/DataAdmin_EgressRequest_SearchBar_noresults.png
+ 
+You can filter Egress Requests by Organization Unit (O.U.), Project, and Request Status (Pending/Approved/Rejected). 
+
+.. image:: images/DataAdmin_EgressRequest_FilterByOU.png
+
+..
+
+.. image:: images/DataAdmin_EgressRequest_FilterByProject.png
+
+..
+
+.. image:: images/DataAdmin_EgressRequest_FilterByRequest.png
+
+Request Actions
+^^^^^^^^^^^^^^^
+
+Each Egress Request card or row has an **Actions** menu (⋮ icon) available on the right side, which includes the following options:
+
+    * :ref:`View<View Egress Request>`
+    * :ref:`Review<Review Egress Request>`
+    * :ref:`Approve<Approve Egress Request>`
+    * :ref:`Reject<Reject Egress Request>`
+
+.. _View Egress Request:
+
+View Egress Request
+-------------------
+
+Clicking **View** from the Actions menu opens a popup that displays a **list of all files** submitted by the researcher as part of the Egress Request.
+
+.. image:: images/DataAdmin_EgressRequest_ViewRequest.png
+.. image:: images/DataAdmin_EgressRequest_ViewRequest_popup.png
+
+.. _Review Egress Request:
+Review Egress Request
+---------------------
+
+Use this option to review the submitted files in a secure workspace:
+
+- **If the review workspace is not yet launched**:
+  
+  1. Clicking **Review** will open the **Workspace Launch Form**.
+      .. image:: images/DataAdmin_Review.png
+      .. image:: images/DataAdmin_Review_LaunchForm.png
+  2. The form corresponds to the specific project from which the request originated. For example, if the request is from the **Genomics Research** project, the launch form will open for the **Genomics Research** workspace.
+  3. Once the workspace becomes active, connect via **Remote Desktop**.
+  4. Go to the **Egress Stage Mount** where a folder with the **Request ID** will be created.
+  5. The submitted files from the researcher will be inside that folder.
+
+- **If the review workspace is already active or stopped**:
+  
+  - Clicking **Review** will take you to the existing workspace.
+
+- **If the review workspace was previously terminated**:
+  
+  - Clicking **Review** will take you back to the **Launch Form** to initiate a new session.
+
+.. note::
+   The review workspace is launched within the same project as the submitted request. Each project maintains its own secure and isolated workspace for review purposes.
+
+.. _Approve Egress Request:
+Approve Egress Request
+----------------------
+
+Click Approve from the Actions menu.A popup window will appear prompting for a commit message (note or reason for the action).Enter the message and click Submit.
+
+.. image:: images/DataAdmin_EgressRequest_ApproveRequest
+
+Once submitted, the request is marked as **APPROVED**
+
+.. note:: Once the Data Admin approves the Egress Request, the Researcher will receive an email notification. Additionally, the Download button will be enabled for the researcher to access the approved files.
+
+.. _Reject Egress Request:
+Reject Egress Request
+---------------------
+
+Click Approve from the Actions menu.A popup window will appear prompting for a commit message (note or reason for the action).Enter the message and click Submit.
+
+.. image:: images/DataAdmin_EgressRequest_RejectRequest
+
+Once submitted, the request is marked as **REJECTED**
+
+.. note:: If the Data Admin rejects the request, the Researcher will be notified via email along with the commit message, and the Download button will be disabled for that request.
+
+
+.. _Budgets:
+
+Budgets
+^^^^^^^
+As a Data Admin, you can view the organization-wide budgets from the **Budgets** screen with a drill-down to the project, researcher and product level.
+
+**Navigation to the Budget**
+
+Log in as the Data Admin user. Click on the “☰” option which is available on the top-left side. Click on the **Budgets** menu item to navigate to the Budgets page.
+
+ 
+.. image:: images/Administrator_Budgets_Navigation.png
+
+**Budget KPIs**
+
+At the top of this view, you can see the summary of budgets across all organization in the KPI cards.
+You can see the following KPI cards:
+
+  * **Total Budget Allotted**: This is the sum total of the budget allocated for all projects in the Organization.
+  * **Total Direct Cost**: This is the budget consumed by all Organizations.
+  * **Total Budget Available**: This is the portion of the allotted budget that is not yet consumed.
+
+.. image:: images/Admin_Budgets_Organization-WiseBudgetBreakdown.png
+
+**Organization-wise budget view**
+
+The Data Admin user can view organization-specific budget details by clicking on a specific organization in the available list. 
+
+The following details are visible in a table format:
+
+
+.. csv-table::
+   :file: BudgetTable.csv
+   :widths: 10, 15, 10, 10, 55
+   :header-rows: 1
+
+
+The Data Admin user can download the Budget details through the “Export as CSV” option. 
+
+
+**Project-wise budget view**
+
+The Data Admin user can view project-specific budget details by clicking on a specific project in the available list. 
+
+The following details are visible in a table format:
+
+
+.. csv-table::
+   :file: BudgetTable2.csv
+   :widths: 10, 15, 10, 10, 15
+   :header-rows: 1
+   
+   
+.. image:: images/Admin_Budgets_Project-WiseBudgetBreakdown.png
+
+**Researcher-wise budget view**
+
+You can also see researcher-wise budget details which are linked to a particular project.
+ 
+.. image:: images/Admin_Budgets_Researcher-WiseBudgetBreakdown.png
+
+**Product-wise budget view**
+
+you can see configured product details on the product-wise budget details page.
+
+.. image:: images/Admin_Budgets_Researcher-WiseBudgetBreakdown.png
+
+Audit Trail
+^^^^^^^^^^^
+
+As a Data Admin, you can use the **Audit Trail** screen to view security-related audits. Click on the “☰” option which is available on the left side header.
+   
+.. image:: images/DataAdmin-AuditTrail.png
+
+Click on the **Audit Trail** menu item. Through this, you can navigate to the Audit Trail page.
+
+.. image:: images/Admin_AuditTrail_DefaultPage.png
+
+You can see the audit event details in the :ref:`Appendix D<Appendix D>` 
+   
+If you try to search the non-existent word it will display a message like “No matching organizations found". You can see the login and logout and failed login audits. Here you can search based on user, status, and status reason. If audits are not found through the search you can see messages like “No matching audits found”.
+
+.. image:: images/Admin_AuditTrail_SearchAction_NoMatchingAuditLogsFound.png
+
+.. image:: images/Admin_AuditTrail_LoginFailedRecords.png
+
+You can filter the logs by admin, data admin, researcher, Organization, and Project. You can also filter the logs through the date. 
+
+.. image:: images/Admin_AuditTrail_FilterLogsBy-new.png
+
+.. image:: images/Admin_AuditTrail_SelectDateRange-new.png
+
+Switch to an Organization Unit
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Data Admin can switch to a different Organization Unit (OU) using either of the two methods described below:
+
+Switch by Clicking on the OU Card
+----------------------------------
+
+To switch to a different Organization Unit (OU), users can click directly on any of the OU cards displayed on the "My Organizations" page. When an OU card is selected, a pop-up titled Organization Details appears, showing the name, description, and other relevant information for that OU. At the bottom of this pop-up, users can click the "Switch to Organization" button, which will immediately redirect them to the selected OU’s workspace.
+
+.. image:: images/Switch_by_Clicking_on_the_OU_Card.png
+
+.. note:: When a **Data Admin** switches into an Organization, they will be able to see All projects.
+
+Switch via User Dropdown Menu
+-------------------------------
+
+Users can also switch OUs using the profile dropdown in the top-right corner of the application. By clicking on the profile name (e.g., Administrator), a dropdown menu appears with the option "Switch Organization...". 
+
+.. image:: images/Switch_by_User_Dropdown_Menu.png
+
+Selecting this opens a dialog box containing a dropdown list of available OUs.
+
+.. image:: images/Switch_by_User_Dropdown_Menu1.png
+
+Users can choose the desired OU from this list and click the "Switch to Organization" button to access it. 
+
+.. image:: images/Switch_by_User_Dropdown_Menu2.png
+
+Once an Administrator switches into a specific Organization Unit (O.U.), you will be redirected to the My Projects page by default. This page displays the list of projects associated with the selected O.U.
+
+.. image:: images/DataAdmin-project-landing-screen.png
+
+
 Studies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-As a Principal Investigator, You can view the studies in the Research Gateway. Click on the “☰” Symbol which is available on the left side header. By clicking on the "Studies" menu item, the user will be navigated to the Studies details page.
+As a Data Admin, You can view the studies in the Research Gateway. Click on the “☰” Symbol which is available on the left side header. By clicking on the "Studies" menu item, the user will be navigated to the Studies details page.
 
 .. image:: images/PrincipalInvestigator_Studies_Navigation.png
 
@@ -1278,8 +1694,8 @@ The studies landing page has a search bar that allows users to search the studie
 
 .. image:: images/PrincipalInvestigator_Studies_Search.png
 
-Public Study(for Principal Investigator)
-----------------------------------------
+Public Study
+------------
 
 .. image:: images/PrincipalInvestigator_Studies_PublicFilter_DefaultPage.png
 
@@ -1321,7 +1737,7 @@ You can see the files/folders which are related to the datastore.
 
 The "Assign to Project" action allows users to associate a study with one or more projects, enabling the study to be accessible and linked to those projects.  
 
-The "Assign to Project" action is a feature available on the Study Details page below Connect tab, which allows authorized users to assign a study to one or more projects. When accessing the Study Details page, users will see an "Assign to Project" button. This button is only visible to users with the appropriate authorization, such as Principal Investigators (PIs). 
+The "Assign to Project" action is a feature available on the Study Details page below Connect tab, which allows authorized users to assign a study to one or more projects. When accessing the Study Details page, users will see an "Assign to Project" button. This button is only visible to users with the appropriate authorization, such as Data Admin. 
 
 Upon clicking the "Assign to Project" button, a dialog box will appear, presenting the user with a list of available projects. The user can then select one or more projects from the list. Initially, the "Submit" button in the dialog box is disabled until the user selects at least one project. 
 
@@ -1355,10 +1771,10 @@ Lastly, when studies appear in the "Study Selection" pane while launching a prod
 
 .. _internal-study:  
 
-Internal Study(for Principal Investigator)
-------------------------------------------
+Internal Study
+--------------
 
-As a Principal Investigator, you can bring an existing S3 bucket in your AWS project account as an Internal study and the same can be mounted to the workspaces launched in the projects to which the study has been assigned. An Internal study can only be used in projects which use the same AWS account.
+As a Data Admin, you can bring an existing S3 bucket in your AWS project account as an Internal study and the same can be mounted to the workspaces launched in the projects to which the study has been assigned. An Internal study can only be used in projects which use the same AWS account.
 
 **Navigation to Studies screen**
 
@@ -1550,83 +1966,8 @@ When any project that is linked to an internal study is archived without unassig
  
 .. image:: images/InternalStudy_linkedtoaccount_AccountDelete_Errormessage.png
 
-External Study(for Principal Investigator)
-------------------------------------------
-As a Principal Investigator, you can bring an existing S3 bucket in any AWS (Amazon Web Services) account apart as an external study and the same can be mounted to the workspaces launched in the projects to which the study has been assigned. An External study can be used in projects that use a different account than the Project Account 
-
-`Watch a video on how to create an external study and mount it to an instance <https://youtu.be/TfJCmH5AM1o>`_
-
-To be able to create an External study and use it in a Project you need to first Add the Study Account from the Settings Page 
-
-**Adding an AWS Study account to create an External Study** 
-
-Login into the Research Gateway. Click on the dropdown bar which is above the header. Choose the “Settings” option 
-
-Click on the “Settings” menu item. The Project Accounts page is opened.
-
-.. image:: images/Principal_Settings_StudyAcountTabNavidation.png
-
-On this page you will see the Study Accounts tab once you navigate to this tab you will be able to see the below screen if you do not have any study account added to your login  
-
-.. image:: images/Principal_Settings_StudyAccountsTab_withNoAccount.png
-
-.. note::
-  a. Study account creation is restricted to the Principal Investigator role. 
-  b. Only a user who is the Unshared Account Owner can see and access the Study Account, delete the study account and create an external study using that account. 
-  c. If it is a shared account then all principal investigator users in the organization can see and access the Study Account and create an external study using that account.
-  d. Only a user who is the Shared Account Owner can delete the study account.
-
-Click on the “+Add New” button on the Study Accounts page. This will open the Add Account form. 
-
-.. image:: images/Principal_Settings_StudyAccountForm.png
-
-Fill in the following details 
-
-.. list-table:: 
-   :widths: 50, 50
-   :header-rows: 1
-
-   * - Attribute
-     - Details
-   * - Account Name
-     - <Account Name>
-   * - Account Key
-     - <Account Key> [It should be a minimum of 16 characters and a maximum of 128 characters]
-   * - Secret Key
-     - <Secret Key> [It should be a minimum of 40 characters and a maximum of 128 characters]
-   * - Region
-     - <Select a region from the drop-down list> 
-   * - Account Number
-     - <Enter an AWS Account Number> [It should be a 12-digit number]
-   * - **Share account**
-     - 
-   * - Allow all Principals in this OU to use this study account.
-     - <Select this option if you want other principals in this OU to be able to create external studies using this setting.>
-
-
-If you want to share account with other principals in your OU to be able to create external studies using this setting then select the "Allow all Principals in this OU to use this study account." checkbox
-
-.. image:: images/Principal_Settings_StudyAccountForm_Shared.png
-
-Click on the “Verify” button, it will check whether the provided details are valid or not. If details are valid, it will show a verified account message with a green color tick mark below the header otherwise it will throw an error message accordingly. 
-
-.. image:: images/Principal_StudyAccountDetails.png
-
-.. image:: images/Principal_StudyAccount_Verified.png
-
-.. image:: images/Principal_StudyAccount.png
-
-Once a study account is added successfully, you will be able to see the study account added and will be able to see a 3-dotted icon which is available on the right side of the account  
-
-.. note:: The 3 dotted icons will be only visible if there are no external studies linked with the study account 
-
-.. image:: images/Principal_StudyAccount_AddedSuccessfully.png
-
-Click on the 3 dotted icon which is available on the right side of the study account you will be able to see the Delete Option  
-
-.. image:: images/Principal_StudyAccount_DeleteButton.png
-
-**How to add external study** 
+External study
+--------------
 
 To be able to create an External study and use it in Project you need to first Add the Study Account from the Settings Page.  
 
@@ -1697,7 +2038,7 @@ Fill in the following details
    * - Study Scope 
      - <Currently only Project level scope is allowed. All the project members can see the study details. But if any user who is not part of the project, will not be able to see the study details.> 
    * - Projects 
-     - <Choose the projects to which the study needs to be assigned. Linux-based workspaces and Sagemaker instances in the selected projects will automatically mount this study. Users can select the project during study creation. Once you select the account, all the projects that you have access to under your organizational unit will be listed here.> 
+     - <Choose the projects to which the study needs to be assigned. Linux-based workspaces and Sagemaker instances in the selected projects will automatically mount this study. Users can select the project during study creation. Once you select the account, all the projects that you have access to under your organization will be listed here.> 
 
 .. image:: images/Principal_ExternalStudyCreation_form4.png
 
@@ -1745,10 +2086,10 @@ The “Study” details page which will show a tabbed area with the following ta
 
      .. image:: images/Principal_ExternalStudyCreation_Errormessage.png  
 
-  b. Only Principal Investigator users can create an External Study. Researcher users cannot create external studies.
-  c. Study account is restricted to Principal Investigator user, User who is the Account Owner can only see and access the Study Account and create an external study for that account. 
+  b. Only Data Admin users can create an External Study. Researcher users cannot create external studies.
+  c. Study account is restricted to Data Admin user, User who is the Account Owner can only see and access the Study Account and create an external study for that account. 
   d. If the user onboards one AWS account as a project account, they cannot onboard the same account as a study account.  
-  e. If the user onboarded one AWS account as a study account, any other user (irrespective of the Organizational Unit) cannot onboard the same AWS account as the study account. 
+  e. If the user onboarded one AWS account as a study account, any other user (irrespective of the Organization) cannot onboard the same AWS account as the study account. 
   f. User can create an external study with the same bucket name and prefix in the same org.  
   g. User cannot register study with an empty bucket. It should have some data. 
   h. In the study creation form user adds a bucket name below they can choose the region that should be the exact region of the bucket in the AWS console. Otherwise mounting will not work.  
@@ -1839,10 +2180,160 @@ Click on the delete action this will open a confirmation dialog box is opened an
 Researcher Features
 +++++++++++++++++++
 
-As a Researcher, you can view all your projects when you login to Research Gateway. 
+When a **Researcher** logs in, all their assigned projects under the **default Organization** are displayed automatically.
 
-.. image:: images/Researcher_LandingPage.png
+.. image:: images/Researcher_login_page.png
+
+
+
+
+.. note:: If the Researcher is assigned to **only one OU**, the **"Switch OU"** option will **not appear** in the top-right dropdown menu. This is because there are no other OUs for the user to switch into.
+.. image:: images/Researcher_no_switch_ou.png
+
+Researcher Roles
+^^^^^^^^^^^^^^^^
+
+Researchers can be assigned different roles within a project based on their responsibilities. These roles define the permissions, user interface, and capabilities available to them on the platform.
+
+**Role Types**
+
+1. Project Owner
+2. Researcher
+
+Each role offers a unique set of privileges and displays a different project view.
+
+Project Owner
+-------------
+
+A researcher with **Project Owner** access has administrative control over the project. This role is granted by an administrator and enables full lifecycle and user management within the project.
+
+Once you click on the project, you can see the budget in the cards and the remaining details will show a tabbed area with the following tabs:
+
+    1. Project Details
+    2. Events
+    3. Available Products
+    4. My Products
+
+Project Details Tab
+-------------------
+  1. You can view the project details here.
+  2. Click on the “Pause” action which is available on the right side. When you click on the “Pause” action, all the researchers under this project would be affected. In a Paused state new provisioning is not allowed. Users can continue to use already provisioned resources as before. All the available products would be visible but the “Launch Now “ button would be hidden.
+  3. Click on the “Resume” button which is available on the right side. The project status changed to “Active”. In the Active state, team members can launch new products from the catalog of Available Products.
+  4. Click on the “Stop” button which is available on the right side. In a Stopped state, all underlying resources will be stopped and the user will not be able to perform actions on them but you are able to terminate the product. You need to manually start the resources except for the s3 product.
+  5. Click on the “Sync” button which is available on the right side. It should sync the catalog. You can see related events in the events tab.
+    .. image:: images/Researcher_projectowner_projectdetails.png
+    .. image:: images/Researcher_projectowner_projectdetails2.png
+  6. Click on the “Manage” option under the Assigned Researchers field. Once clicked on that, enable the checkbox beside the researcher Emails and click on the “Update list” button. It will add collaborators to the project. You can search the researchers, through the search option.
+    .. image:: images/Researcher_ProjectDetails_assignedusers.png
+  7. Click on the “Manage” option under the Project Owner field to assign a project owner. Once opened, you can search for a researcher using the search bar and select the desired user by enabling the checkbox next to their email. After making your selection, click the “Update list” button to confirm and assign the project owner.You can also search for specific researchers using the search bar provided.
+    .. image:: images/Researcher_ProjectOwner_assignProjectowner.png
+  .. note::
+    a. Only researchers who have been assigned to the project will appear in the list of eligible Project Owners.
+    b. A user designated as the Project Owner is granted elevated permissions, enabling them to manage users and perform all administrative actions on the project—such as starting, stopping, archiving the project, and managing budgets.
+  8. Click on the “Manage” button under the Project Tags section to enable tag editing.
+  Once clicked, you will see the option to “+ Add New” tags to the project. Enter the desired Key and Value, and then click “Update Tags” to save your changes.It will update the Project Tags successfully and show a green color toaster message. Tags help in categorizing, filtering, and managing resources efficiently.
+    .. image:: images/Researcher_ProjectOwner_ProjectTags.png
+
+Events Tab
+----------
+You can see the project-related events in the Appendix E.
+
+.. image:: images/Researcher_projectOwner_events.png
+
+Available Products Tab
+----------------------
+1. You can view the Available Products information here and you can see products in a table view also.
+2. You can search based on product name and description. You can filter the products. We have the following filter options
+    a. All - You can see the all products here.
+    b. Research - You can see the products related to compute and analytics here. Eg: Amazon EC2
+    c. IT Applications - You can see the products related to storage and database here. Eg: Amazon RDS
+  .. image:: images/Researcher_projectOwner_Avaiable_products.png
+
+My Products Tab
+---------------
+
+1. You can view the provisioned products details here and You can see products in a table view also.
+2. You can search for the product name and description of the product.
+3. You can filter the products. We have the following filter options:
+    a. All - You can see the all(i.e., active,terminated,stopped and failed) products here.
+    b. Active - You can see all the active products here.
+    c. Terminated - You can see all terminated products here.
+  .. image:: images/Researcher_projectOwner_MyProducts.png
+
+All Products Tab
+----------------
+
+1. Project owner will now see all the products launched by all the project team members in the All Products tab. They will also be able to perform Stop and Terminate actions on the products using the 3-dotted icon which is available at the right side of the table.
+2. You can search for the product name and description of the product.
+3. You can filter the products. We have the following filter options:
+    a. All - You can see all the (i.e., active, terminated, stopped and failed) products here.
+    b. Active - You can see all the active products here.
+    c. Terminated - You can see all terminated products here.
+  .. image:: images/Researcher_projectOwner_AllProducts.png
+
+Researcher
+----------
+
+A user with **Researcher** access can provision resources from the available catalog but does not have administrative rights within the project.
+
+.. image:: images/researcher_researcherAccess.png
+
+Available Products
+------------------
+
+You can view the service catalog of products available for the project. These items will be organized into Portfolios. Clicking on a portfolio will display all the Products available in it.
+
+.. image:: images/Researcher_Project_AvailableProducts.png
+
+You can see the product information on the card. You can know more information about the product through the “Know More” link. Through the “View Details” link you can see the following:
+
+a. **Available Products List view** - You can see the product details in the list view.
+
+b. **Available Products Card view** - You can see the product details in the card view.
+
+c. **Keyword search** - You can search products based on product type, product name and product description.
+
+d. **Filter** - We have the following filter options:
+      
+	  a. **All** - You can see the all products here.
+	  b. **Research** - You can see the products related to compute and analytics here. Eg: Amazon EC2
+	  c. **IT Applications** - You can see the products related to storage and database here. Eg: Amazon RDS
+
+.. image:: images/Researcher_Project_AvailableProducts_ViewAll.png
+
+.. note:: Use details from :ref:`Appendix B<Appendix B>` for Standard Catalog Products.
+
+**Secure connections to resources using ALB to RStudio and Nextflow-Advanced products**
+
+1. Research Gateway can set up secure connections to your resources by putting them behind an Application Load Balancer with SSL connections using certificates managed by AWS Certificate Manager.
+2. When creating an account if you select the “Use SSL with ALB” check box it will create ALB. An ALB will incur costs irrespective of traffic passing through it. 
+
+.. note:: Refer :ref:`Adding AWS Accounts <Adding AWS Accounts>` for account creation.
+   
+ .. image:: images/User_AddAccount_LaunchForm_SSL-ALBCheckbox.png
  
+3. Once project creation is successful you can see the status of certificates and load balancer, target groups, listeners, etc.. on the events page.
+   
+  .. note:: Refer :ref:`Adding a new project <Adding a new project>` for project creation.
+
+4. Navigate to the panel of the available product and launch Nextflow-Advanced with the required parameters. Once the product is provisioned you can see the outputs through the “View Outputs”. You can monitor the pipeline through “Monitor Pipeline”.
+
+.. image:: images/Product_NextflowAdvanced_Actions.png 
+
+5. Navigate to the panel of the available product and launch RStudio with the required parameters. Once the product is provisioned you can connect to RStudio through the “Open link” action.
+   
+.. image:: images/Product_RStudio_Actions.png 
+
+`Secure connections to resources using ALB and Amazon certificates video <https://www.youtube.com/watch?v=3MkouV33XJw>`_
+
+
+
+**KPI Cards Visible:**
+
+- **Direct Cost Budget** – Total budget allocated to the project
+- **Total Direct Cost** – Total cost incurred by all researchers in the project
+- **Current Month Direct Cost** – Total cost incurred in the current month
+
 The researcher can view service catalog products available for the project. Click on a project card to navigate to the Project Details page. You can see KPI cards, available products and active product information on the project details page.
 
 KPI Cards
@@ -1879,55 +2370,6 @@ In the project-wise budget details page, you can see the below details in a tabl
 In the researcher-wise details budget page, you can see the below details in a table format
 
 .. image:: images/Researcher_Budget_ProductWiseBudgetBreakdown.png
-
-Available Products
-^^^^^^^^^^^^^^^^^^
-
-You can view the service catalog of products available for the project. These items will be organized into Portfolios. Clicking on a portfolio will display all the Products available in it.
-
-.. image:: images/Researcher_Project_AvailableProducts.png
-
-You can see the product information on the card. You can know more information about the product through the “Know More” link. Through the “View Details” link you can see the following:
-
-a. **Available Products List view** - You can see the product details in the list view.
-
-b. **Available Products Card view** - You can see the product details in the card view.
-
-c. **Keyword search** - You can search products based on product type, product name and product description.
-
-d. **Filter** - We have the following filter options:
-      
-	  a. **All** - You can see the all products here.
-	  b. **Research** - You can see the products related to compute and analytics here. Eg: Amazon EC2
-	  c. **IT Applications** - You can see the products related to storage and database here. Eg: Amazon RDS
-
-.. image:: images/Researcher_Project_AvailableProducts_ViewAll.png
-
-.. note:: Use details from :ref:`Appendix B<Appendix B>` for Standard Catalog Products.
-
-**Secure connections to resources using ALB to RStudio and Nextflow-Advanced products**
-
-1. Research Gateway can set up secure connections to your resources by putting them behind an Application Load Balancer with SSL connections using certificates managed by AWS Certificate Manager.
-2. When creating an account if you select the “Use SSL with ALB” check box it will create ALB. An ALB will incur costs irrespective of traffic passing through it. 
-
-.. note :: Refer :ref:`Adding AWS Accounts <Adding AWS Accounts>` for account creation.
-   
- .. image:: images/User_AddAccount_LaunchForm_SSL-ALBCheckbox.png
- 
-3. Once project creation is successful you can see the status of certificates and load balancer, target groups, listeners, etc.. on the events page.
-   
-  .. note:: Refer :ref:`Adding a new project <Adding a new project>` for project creation.
-
-4. Navigate to the panel of the available product and launch Nextflow-Advanced with the required parameters. Once the product is provisioned you can see the outputs through the “View Outputs”. You can monitor the pipeline through “Monitor Pipeline”.
-
-.. image:: images/Product_NextflowAdvanced_Actions.png 
-
-5. Navigate to the panel of the available product and launch RStudio with the required parameters. Once the product is provisioned you can connect to RStudio through the “Open link” action.
-   
-.. image:: images/Product_RStudio_Actions.png 
-
-`Secure connections to resources using ALB and Amazon certificates video <https://www.youtube.com/watch?v=3MkouV33XJw>`_
-
 
 Product Order
 ^^^^^^^^^^^^^
@@ -2702,7 +3144,7 @@ You can also see configures Product-wise budget details which are linked to a pa
 
 Studies (For Researcher)
 ^^^^^^^^^^^^^^^^^^^^^^^^
-In the research field, the ability to use data stores or "Studies" is key. A researcher may have his own data ("My Study"), or a Principal may create a data-store that is shared across researchers in the same project (Project Studies) or the researcher may connect to Open Data like the AWS registry of open data.
+In the research field, the ability to use data stores or "Studies" is key. A researcher may have his own data ("My Study"), or a Data Admin may create a data-store that is shared across researchers in the same project (Project Studies) or the researcher may connect to Open Data like the AWS registry of open data.
 
 .. image:: images/Researcher_Studies_Navigation.png
 
@@ -2933,7 +3375,7 @@ b. Select App registrations.
 
 c. Select New registration. 
 
-d. For Supported account types, select Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant). Leave the other options as is.  
+d. For Supported account types, select Accounts in any organization directory (Any Microsoft Entra ID tenant - Multitenant). Leave the other options as is.  
 
 .. image:: images/AZURE_AppRegistration_2.png
 
@@ -3084,6 +3526,135 @@ Fill out the New Group form:
 3. When you have finished adding members, click Select. 
    
 .. image:: images/AZURE_Group_AddMembers.png   
+
+Amazon Cognito-ext Setup Guide
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. Create a User Pool
+---------------------
+
+a. Sign in to the AWS Management Console and navigate to the **Amazon Cognito** service.
+b. Click **"Create user pool"** to begin the setup.
+c. Choose a pool name and select authentication providers.
+d. Configure:
+   - Password policies
+   - MFA settings
+   - Account recovery options
+e. Customize email/SMS messaging if needed.
+f. Add any **custom attributes** required.
+g. Review all settings and click **"Create"**.
+
+2. Configure App Client
+-----------------------
+
+a. Go to the **"App integration"** tab.
+b. Under **"App clients"**, click **"Create app client"**.
+c. Set:
+   - App client name
+   - Authentication flows (e.g., ALLOW_USER_SRP_AUTH, ALLOW_REFRESH_TOKEN_AUTH)
+   - Token expiration times
+d. Optionally generate a **client secret** (recommended for server-side apps).
+e. Set OAuth 2.0 settings:
+   - Callback URLs
+   - Sign-out URLs
+   - OAuth flows and scopes
+f. Save the app client.
+
+3. Set Up Hosted UI
+-------------------
+
+a. In the **"Hosted UI"** section, click **"Edit"**.
+b. Choose a domain (e.g., ``your-domain.auth.us-east-1.amazoncognito.com``).
+c. Optionally customize UI with logo and CSS.
+d. Configure sign-in and sign-out URLs.
+e. Save your changes.
+
+4. Configure External IdP (Okta)
+--------------------------------
+
+a. In the **"Sign-in experience"** tab, go to **"Federated identity provider sign-in"**.
+b. Click **"Add identity provider"** and select **SAML**.
+c. Provide:
+   - IdP name
+   - SAML metadata (upload document or provide URL)
+d. Map SAML attributes to Cognito attributes.
+e. Save the IdP configuration.
+
+5. Update App Client for External IdP
+-------------------------------------
+
+a. Go to **"App clients"** under **"App integration"**.
+b. Select your app client and click **"Edit"**.
+c. Under **"Federated identity provider sign-in"**, enable the **Okta IdP**.
+d. Save the changes.
+
+6. Configure Okta as SAML IdP
+----------------------------
+
+a. Log into the **Okta admin console**.
+b. Create a **SAML 2.0 application**.
+c. Use Cognito's **SAML metadata URL** for setup.
+d. Configure attribute mappings to match Cognito settings.
+e. Assign the app to the appropriate users/groups in Okta.
+
+7. Form Sign-On URL for SAML Response
+-------------------------------------
+
+Use the following format:
+
+::
+
+   https://<your-domain>.auth.<region>.amazoncognito.com/saml2/idpresponse
+
+Replace ``<your-domain>`` and ``<region>`` with actual values.
+
+Configuration Example
+^^^^^^^^^^^^^^^^^^^^^
+
+Make sure the following configuration is available in your application:
+ 
+ To apply the configuration, follow these steps:
+
+1. **Login to your AWS account**.
+
+2. **Navigate to EC2 Dashboard** and connect to the **RG-Instance** using EC2 Instance Connect or SSH.
+
+3. **Run the following commands** to open the configuration file:
+
+::
+
+   sudo su
+   cd /opt/deploy/sp2/config
+   vi config.json
+
+4. **Update the file** with the following content:
+
+.. code-block:: json
+
+   {
+     "AWSCognito": {
+       "domain": "https://example.auth.us-east-2.amazoncognito.com",
+       "clientSecret": "kmj5bcg95jm110kuo6592vhbhihcghj4q2qj9acfaakjxnajjabcdef",
+       "accessKeyId": "AKIAQVMRGUF4abcdef",
+       "secretAccessKey": "gHNs+96ajrnB+WuKwv+FL5Wfh4N2MW+abcdef",
+       "userPoolId": "us-east-2_XWOJabcdef",
+       "clientId": "f9ul5gcu0qllnv5bmhtabcdef",
+       "region": "us-east-2",
+       "groupName": "RL-Group",
+       "enableSecretManager": true,
+       "secretID": "portaldevsecret"
+     },
+
+     "LoginStrategy": "cognito-ext"
+   }
+
+5. **Save and exit** the file.
+6. **Restart the service** to apply the changes:
+  ::
+
+    cd /opt/deploy/sp2
+    ./rgdeploy.sh
+
 
 Research Gateway as SaaS solution on AWS Marketplace
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

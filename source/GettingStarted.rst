@@ -10,7 +10,7 @@ You can access this product either as a `hosted Silo model`_ or as a hosted Shar
 If you are using the hosted Silo model, you will be provided a public URL to which you can navigate using your browser. 
 You will also be provided with the credentials of the Administrator user.
 
-1. The Administrator can add Organizational Units and AWS Accounts, create Users, assign them to the OUs and assign catalog items to the OUs.
+1. The Administrator can add Organizations and AWS Accounts, create Users, assign them to the OUs and assign catalog items to the OUs.
 2. If you are using the hosted Shared model, you can sign up with your details. Use details from :ref:`Sign-Up <Sign-Up process>` to create a new tenant.
 
 .. contents::
@@ -24,20 +24,21 @@ Setting up your RLCatalyst Research Gateway for use involves the following steps
 
 Users with the Administrator role can perform the steps below.
 
-  * :ref:`Adding Users<Adding Users>` - Users can have Administrator, Principal Investigator or Researcher roles.
+  * :ref:`Adding Users<Adding Users>` - Users can have Administrator, Data Admin or Researcher roles.
   * `Adding AWS Accounts`_
-  * `Adding Organizational Units`_
+  * `Adding an Organizations`_
   * :ref:`Adding Catalog Items<Catalog>`
-
-.. note:: The administrator should assign products from the standard catalog collection to the organizational unit before a PI can successfully create a project with attached Project Storage.
-
-Users with the Principal Investigator role can perform the steps below.
-  
   * `Adding a New Project`_
-  * :ref:`Adding Users<Users_PI>` - Users can have Principal Investigator or Researcher roles.
-  * `Adding AWS Accounts`_
-  * :ref:`Adding Catalog Items<Catalog_PI>`
-  * `Assigning Researchers to projects`_
+
+.. note:: The administrator must assign products from the Standard Catalog Collection to the organization before a user can successfully create a project with attached Project Storage.
+
+Users with the Data Admin role can perform the steps below.
+  
+  * :ref:`Add an study account<Create Study Account to create Study>`
+  * View and manage `Egress requests` across all OUs.
+  * Add a new Project - Data Admins can add only Ingress and Data Library projects.
+  * View and manage Studies
+
 
 Create an Admin user
 --------------------
@@ -45,51 +46,105 @@ Create an Admin user
 If you have subscribed to the hosted version of the Research Gateway application, you would have created the Admin user during registration.
 You would have subsequently received an email with a link to confirm the Administrator user's email. Use these details to login into Research Gateway.
 
-Sign-In Process
----------------
-Use details from :ref:`Forgot Password<Forgot Password>` for  Email, Password as per password policy.
+Sign in with Okta
+-----------------
 
-Fill in the following details 
+Open your **Research Gateway URL** in a browser.
+Click on the **“Continue with Okta”** button under the *With other accounts* section.
 
-.. list-table:: 
-   :widths: 50 50
-   :header-rows: 1
+.. image:: images/User_Sign_in.png
 
-   * - Field
-     - Details
-   * - Email
-     - <Email ID that is used for login>
-   * - Password
-     - <Password for this user>
-	 
-Click on the “Sign-In“ button. We can log in successfully.
+You will be redirected to your organization's Okta login page:
 
-.. image:: images/User_Login_Window.png
+Enter your **username** and **password**.
+Click on **Sign in** to proceed.
+
+.. image:: images/User_okta_sign_in.png
+
+Upon successful authentication, you will be redirected back to the Research Gateway dashboard, which serves as the landing page for accessing your projects and services.
+
+Sign in with Existing User (Email Login)
+----------------------------------------
+
+Open your **Research Gateway URL** in a browser.
+Under *With existing account*:
+
+Enter your **registered email address**.
+
+.. image::  images/User_signin_ExistingUser.png
+
+Click on the **Next** button.You will be redirected to a password entry screen.
+
+.. image:: images/User_signin_ExistingUser_password.png
+
+Enter your **password** and click **Continue**.
+
+Upon successful authentication, you will be redirected back to the Research Gateway dashboard, which serves as the landing page for accessing your projects and services.
 
 .. _`Forgot Password`:
 
-Forgot Password
----------------
-In case you have forgotten your password, you can use the “Forgot Password” link on the login screen which is under the "Sign In" button.
+Forgot Password for Okta Users
+------------------------------
+If you are an Okta user and have forgotten your password, follow the instructions below to reset it.
 
-Click the link to navigate to the reset password screen.  
+ On the sign-in screen, click on **"Forgot your password?"** link.
 
-.. image:: images/User_ForgotPassword_Window.png
+ .. image:: images/User_okta_forgotpassword.png
 
-Fill in the following details
+ Enter your registered email address or username and click **Next**.
 
-.. list-table:: 
-   :widths: 50, 50
-   :header-rows: 1
+ .. image:: images/User_okta_forgotpassword_email.png
 
-   * - Field
-     - Details
-   * - E-mail address
-     - <Registered Email ID>
-   
-Click on the "Send Resend link" button. If the provided details are valid, you will get a verification link on the registered email address to reset the password. On clicking the link in the email, the user is led to the change password screen.  
+You will be prompted to send a verification email. Click **"Send me an email"**.
 
-.. image:: images/User_Account_ResentVerificationEmail.png
+ .. image:: images/User_okta_forgotpassword_sendemailconformation.png
+
+ .. image:: images/User_okta_forgotpassword_sendemail.png
+
+Check your inbox for an email with the verification link or code.
+
+ .. image:: images/User_okate_forgotpassword_emailinbox.png
+
+Click on **"Enter a verification code instead"** and enter the received code manually.
+
+ .. image:: images/User_ForgotPassword_Okta_verificationcode.png
+
+
+Once verified, you will be asked to set a **new password**.
+
+Enter your new password and submit to complete the reset process.
+
+.. note:: 
+    a. The verification link or code expires after a short duration.
+    b. If expired, repeat the process starting from the sign-in screen.
+    c. Ensure your new password meets the organization's password policy.
+
+Forgot Password for Existing Users
+----------------------------------
+
+If you are an existing user and have forgotten your password, you can reset it by following the steps below:
+
+Under *With existing account*:
+
+Enter your **registered email address**.
+
+.. image::  images/User_signin_ExistingUser.png
+
+Click on the **Next** button.You will be redirected to a password entry screen.
+
+.. image:: images/User_signin_ExistingUser_password.png
+
+Click on **“Forgot Your Password?”**.You will be directed to the **Forgot Your Password** screen.
+
+.. image:: images/User_signin_ExistingUser_forgotpassword.png
+
+Enter your registered **email address** and click on **“Reset My Password”**. You will receive an **email containing a verification code**.
+
+.. image:: images/User_signin_ExistingUser_VerificationEmail.png
+
+In the UI, you will be redirected to the **Reset Password** screen.Enter the **verification code** and your **new password**, then submit the form.
+
+.. image:: images/User_signin_ExistingUser_ResetPassowrd.png
 
 .. note::
 
@@ -100,74 +155,14 @@ Click on the "Send Resend link" button. If the provided details are valid, you w
    d. It should have at least one number(0-9).
    e. It should have at least one special character (= + - ^ $ * . [ ] { } ( ) ? ! @ # % & / , > < ' : ; | _ ~).
 
-If the password change is successful you can navigate to the verification successful page. Through the "Click here to login button" you can navigate to the login screen.
- 
-If the password change is unsuccessful you can see the verification error screen. 
+Once the password is successfully reset, you will be redirected to the **Sign-In** page.
+You can now log in to **Research Gateway** using your **new password**. Upon login, you will be redirected to the **landing page**.
 
-.. image:: images/User_ChangePasswordWindow.png
+.. note:: 
+  a. Check your spam or junk folder if you do not receive the verification email.
+  b. The verification code is time-sensitive. If it expires, request a new one.
+  c. If you encounter issues, contact your system administrator for assistance.
 
-.. image:: images/User_ChangePassword_Success.png
-
-
-.. _`Sign-Up process`:
-
-Sign-Up process
----------------
-
-You can follow the below instructions to create a new user in hosted shared model.
-
-Sign up with a Google ID
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-1. In a browser window, open the Research Gateway URL (https://research.rlcatalyst.com/login).
-2. Click on the “Sign up with Google” button.
-3. If you are already signed in to your Google account, you will be prompted to choose the Google account to use. Select an account.
-4. If you are not signed in to your Google account, you will be prompted for your credentials. Enter your Google account email address and password. 
-5. Once logged in to your account, you will land on the Welcome page in Research Gateway.
-
-.. image:: images/User_SignUpForNewAccount_Window.png
-
-.. note:: You can watch the system setup video through the `Click here <https://www.youtube.com/watch?v=zDksIb1n9zI>`_ link in the welcome screen.
-
-Sign up with an Email address
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-1. In a browser window, open the Research Gateway URL (https://research.rlcatalyst.com/login).
-2. Click on the "Sign up for new account" link which is below the sign-in button. 
-3. A registration form will be opened. 
-
-.. image:: images/User_SignUpForNewAccount_Window.png
-
-Fill in the following details 
-
-.. list-table:: 
-   :widths: 50 50
-   :header-rows: 1
-
-   * - Field
-     - Details
-   * - Email
-     - <Enter an Email ID>[Mandatory]
-   * - First Name
-     - <Enter first name> [Optional]
-   * - Last Name
-     - <Enter Last name> [Optional]
-   * - Phone number
-     - <Enter the phone number of the user> [Optional]
-	 
-Click on the “Sign Up“ button. If the provided details are valid, you will receive a verification link on the registered email address to reset the password. On clicking the link in the email, you will be led to the change password screen.
-
-The password needs to confirm to the password policy. 
-
-.. image:: images/User_Account_VerificationEmail.png
-
-If the password change is successful you will be navigated to the verification successful page. Through the “Click here to login button” you will be navigated to the Research Gateway login screen.
-
-Once logged in to your account, you will land on the Welcome page in Research Gateway.
-
-.. image:: images/User_SignUpForNewAccount_Window.png
-
-.. note:: You can watch the system setup video through the `Click here <https://www.youtube.com/watch?v=zDksIb1n9zI>`_ link in the welcome screen.
 
 .. _`Session timeout`:
 
@@ -176,10 +171,10 @@ Session Timeout
 
 If the user is idle for more than 15 minutes and then performs any activity on the website, the current session will be logged out with a red toaster message and the user will be routed to the login page. In an enterprise deployment, the duration of the timeout can be customized.
 
-.. _`Adding Organizational Units`:
+.. _`Adding an Organizations`:
 
-Adding Organizational Units
----------------------------
+Adding Organizations
+--------------------
 
 To plan the creation of a new Organization, use the planning sheet in :ref:`Appendix A<Appendix A>` to collect all the information required upfront. Login into the Research Gateway. The user landed on the main dashboard.
 
@@ -202,7 +197,7 @@ Click on the “+Add New” icon which is at the top right corner. The organizat
    * - Add Users
      - <Select Principal Investigator ID from the list or create a new one through **"Add users"** button > [Optional]
 	 
-Click on the **“Create Organization”** button. The new organizational unit is added successfully.
+Click on the **“Create Organization”** button. The new organization is added successfully.
 
 .. image:: images/Admin_CreateOrganizationPage.png
 
@@ -211,7 +206,7 @@ Click on the **“Create Organization”** button. The new organizational unit i
   a. You can create an organization without Principal Investigator. Through the "Assign O.U." option in users, you can assign later.
   b. You can create an organization without the selection of an account name.
 
-The Organizations page of the Research Gateway lists all the existing organizational units created, with some details of each organization displayed on the card. 
+The Organizations page of the Research Gateway lists all the existing organizations created, with some details of each organization displayed on the card. 
 
 .. image:: images/Administrator_OrganizationCard.png
 
@@ -220,7 +215,7 @@ The Organizations page of the Research Gateway lists all the existing organizati
 Assigning catalog items to OU
 ------------------------------
 
-The administrator should :ref:`assign products from standard catalog collection to the organizational unit<catalog>` before a PI can successfully create a project with attached Project Storage.
+The administrator should :ref:`assign products from standard catalog collection to the organization<catalog>` before a PI can successfully create a project with attached Project Storage.
 
 .. _`Adding AWS Accounts`:
 
@@ -306,7 +301,7 @@ Fill in the access key and secret key values in the assigned boxes and click on 
 
 On successful completion of verification you can see the "repair" option, click on the button in the window, and the account will be repaired.
 
-Click on the contextual menu which is available on the right side of the account name and choose the "Assign O.U" option. One window is opened and all organizational units are listed there. Choose one organization from the list and click on the "Assign" button. On successful completion, you can see the green color toaster message.
+Click on the contextual menu which is available on the right side of the account name and choose the "Assign O.U" option. One window is opened and all organizations are listed there. Choose one organization from the list and click on the "Assign" button. On successful completion, you can see the green color toaster message.
 
 .. image:: images/Admin_Settings_Account_AssignO.U.png
 
